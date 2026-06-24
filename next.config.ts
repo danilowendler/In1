@@ -30,15 +30,18 @@ const supabaseWs = supabaseOrigin.replace(/^https:/, "wss:");
  * - googlesyndication / doubleclick / google.com   AdSense (scripts + ad iframes)
  * - googletagmanager / google-analytics            Google Analytics
  * - clarity.ms / c.bing.com                         Microsoft Clarity
- * - 'wasm-unsafe-eval'  WASM compilation (ffmpeg + ONNX)
- * - blob:               tool previews/downloads and worker creation
+ * - 'wasm-unsafe-eval' + 'unsafe-eval'  WASM compilation + the emscripten glue's
+ *                       runtime eval() (both ffmpeg.wasm and the ONNX runtime)
+ * - blob:               ffmpeg/ONNX load their JS+wasm engine from blob: URLs
+ *                       (so blob: is needed on script-src-elem AND connect-src),
+ *                       plus tool previews/downloads and worker creation
  *
  * NOT included on purpose: require-trusted-types-for (breaks the markdown /
  * JSON-LD dangerouslySetInnerHTML) and a bare frame-src 'self' (breaks ads).
  *
- * Rolled out as Report-Only first (see headerKey below); flip to the enforcing
- * header once a real deploy shows the reports are clean. See
- * PLANO-CYBERSEGURANCA.md.
+ * ENFORCING (Phase B). Rolled out as Report-Only first; a real prod deploy
+ * showed the ONLY violations were the WASM tools' blob: engine load + emscripten
+ * eval (both now explicitly allowed above). See PLANO-CYBERSEGURANCA.md.
  */
 const adOrigins = [
   "https://pagead2.googlesyndication.com",
@@ -50,12 +53,12 @@ const adOrigins = [
 
 const csp = [
   `default-src 'self'`,
-  `script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://unpkg.com ${adOrigins.join(" ")}`,
-  `script-src-elem 'self' 'unsafe-inline' https://unpkg.com ${adOrigins.join(" ")}`,
+  `script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: https://unpkg.com ${adOrigins.join(" ")}`,
+  `script-src-elem 'self' 'unsafe-inline' blob: https://unpkg.com ${adOrigins.join(" ")}`,
   `style-src 'self' 'unsafe-inline'`,
   `font-src 'self' data:`,
   `img-src 'self' data: blob: https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.google-analytics.com https://*.clarity.ms`,
-  `connect-src 'self' ${supabaseOrigin} ${supabaseWs} https://unpkg.com https://staticimgly.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com`,
+  `connect-src 'self' blob: ${supabaseOrigin} ${supabaseWs} https://unpkg.com https://staticimgly.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com`,
   `frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.googlesyndication.com https://www.google.com`,
   `worker-src 'self' blob:`,
   `object-src 'none'`,
@@ -66,9 +69,10 @@ const csp = [
   .map((d) => d.replace(/\s+/g, " ").trim())
   .join("; ");
 
-// Phase A: Report-Only (observe, don't block). Switch to
-// "Content-Security-Policy" to enforce once validated on a real deploy.
-const cspHeaderKey = "Content-Security-Policy-Report-Only";
+// Phase B: ENFORCING. Validated on prod via Report-Only first; the WASM tools'
+// blob: engine load + emscripten eval are now explicitly allowed in the policy.
+// To go back to observe-only, switch this to "Content-Security-Policy-Report-Only".
+const cspHeaderKey = "Content-Security-Policy";
 
 const securityHeaders = [
   { key: cspHeaderKey, value: csp },
