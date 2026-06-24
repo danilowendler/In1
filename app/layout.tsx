@@ -29,6 +29,8 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   applicationName: siteConfig.name,
   alternates: { canonical: "/" },
+  // Google AdSense site verification (Metatag method). The publisher id is public.
+  other: { "google-adsense-account": "ca-pub-4085192822508354" },
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
