@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Analytics } from "@/components/analytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { WebsiteSchema } from "@/components/seo/json-ld";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/lib/site";
@@ -59,7 +60,10 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <Toaster />
+        {/* GA/Clarity/AdSense (loads only when their env vars are set) */}
         <Analytics />
+        {/* Vercel Web Analytics — no env vars; enable it in the Vercel dashboard */}
+        <VercelAnalytics />
       </body>
     </html>
   );
