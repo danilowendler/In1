@@ -110,13 +110,20 @@ export default function ColorConverterTool() {
             className="h-11 font-mono"
           />
         </div>
-        <input
-          type="color"
+        {/* The visible swatch is fully filled with the current color; the native
+            color input sits on top, transparent, so clicking still opens the picker. */}
+        <label
+          className="relative block h-11 w-14 shrink-0 cursor-pointer overflow-hidden rounded-lg border border-border"
+          style={{ backgroundColor: rgb ? toHex(rgb) : "transparent" }}
           aria-label="Pick a color"
-          value={rgb ? toHex(rgb) : "#000000"}
-          onChange={(e) => setInput(e.target.value)}
-          className="h-11 w-14 cursor-pointer rounded-lg border border-border bg-transparent"
-        />
+        >
+          <input
+            type="color"
+            value={rgb ? toHex(rgb) : "#000000"}
+            onChange={(e) => setInput(e.target.value)}
+            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+          />
+        </label>
       </div>
 
       {rgb ? (
