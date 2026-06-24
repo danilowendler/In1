@@ -55,7 +55,7 @@ export function CategoryShowcase() {
                 {c.icon ? (
                   <Image src={c.icon} alt="" className="h-full w-full object-contain p-6" />
                 ) : c.lucide ? (
-                  <Icon name={c.lucide} className="size-16 text-muted-foreground" />
+                  <Icon name={c.lucide} className="size-10 text-foreground/80" strokeWidth={1.5} />
                 ) : null}
               </div>
               <div className="flex flex-1 flex-col p-5">

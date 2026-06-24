@@ -161,10 +161,12 @@ export type IconName = keyof typeof iconMap;
 export function Icon({
   name,
   className,
+  strokeWidth,
 }: {
   name: IconName;
   className?: string;
+  strokeWidth?: number;
 }) {
   const Cmp = iconMap[name];
-  return <Cmp className={className} aria-hidden="true" />;
+  return <Cmp className={className} strokeWidth={strokeWidth} aria-hidden="true" />;
 }
