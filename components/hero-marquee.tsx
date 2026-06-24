@@ -11,7 +11,7 @@ interface HeroMarqueeProps {
  * Decorative background for the dark hero: several rows of tool chips drifting
  * sideways at different speeds and directions. Purely visual (aria-hidden) and
  * kept subtle via low opacity + a center vignette so the headline stays legible.
- * Pauses entirely under `prefers-reduced-motion`.
+ * Animates continuously (the reduced-motion pause was removed by product decision).
  */
 export function HeroMarquee({ tools, rows = 5 }: HeroMarqueeProps) {
   // Split the catalog across rows so each row shows a different slice.

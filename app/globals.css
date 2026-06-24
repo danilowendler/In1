@@ -152,11 +152,8 @@
   from { transform: translateX(-50%); }
   to { transform: translateX(0); }
 }
-@media (prefers-reduced-motion: reduce) {
-  .hero-marquee-row {
-    animation: none !important;
-  }
-}
+/* Product decision: the hero marquee animates continuously, even when the OS
+   requests reduced motion (the prefers-reduced-motion pause was removed on purpose). */
 
 /* Rendered Markdown preview (markdown-to-html, markdown-editor).
    Restores sensible defaults that Tailwind's preflight strips, without
