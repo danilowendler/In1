@@ -33,17 +33,36 @@ function matchesQuery(tool: Tool, q: string) {
   return hay.includes(q);
 }
 
+/** Euclidean distance between two points (used for pinch-zoom). */
+function distance(a: { x: number; y: number }, b: { x: number; y: number }) {
+  return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
 export function ToolPool({ tools }: ToolPoolProps) {
   const [query, setQuery] = useState("");
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [scale, setScale] = useState(1);
   const [dragging, setDragging] = useState(false);
 
-  // Drag bookkeeping (refs so the move handler never reads stale state).
+  // Gesture bookkeeping (refs so move handlers never read stale state).
   const canvasRef = useRef<HTMLElement>(null);
+  const pointers = useRef(new Map<number, { x: number; y: number }>());
   const dragStart = useRef({ px: 0, py: 0, panX: 0, panY: 0 });
-  const pointerActive = useRef(false);
+  const pinchStart = useRef<{ dist: number; scale: number } | null>(null);
   const moved = useRef(false);
+  // Mirror pan/scale into refs so gesture handlers always read fresh values.
+  const panRef = useRef(pan);
+  const scaleRef = useRef(scale);
+
+  const applyPan = useCallback((p: { x: number; y: number }) => {
+    panRef.current = p;
+    setPan(p);
+  }, []);
+  const applyScale = useCallback((s: number) => {
+    const clamped = Math.min(1.6, Math.max(0.35, s));
+    scaleRef.current = clamped;
+    setScale(clamped);
+  }, []);
 
   // Stable "all tools" positions, keyed by the tool's original index.
   const fullPos = useMemo(
@@ -74,47 +93,80 @@ export function ToolPool({ tools }: ToolPoolProps) {
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const factor = e.deltaY > 0 ? 0.9 : 1.1; // scroll out → zoom out
-      setScale((s) => Math.min(1.6, Math.max(0.35, s * factor)));
+      applyScale(scaleRef.current * factor);
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
+  }, [applyScale]);
+
+  const onPointerDown = useCallback((e: React.PointerEvent) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.current.size === 2) {
+      // Second finger down → start a pinch (this is never a tap).
+      const [a, b] = [...pointers.current.values()];
+      pinchStart.current = { dist: distance(a, b), scale: scaleRef.current };
+      moved.current = true;
+      setDragging(false);
+    } else if (pointers.current.size === 1) {
+      // One pointer: potential tap or drag. Don't capture yet so a tap can
+      // still reach the tool card's <Link>.
+      moved.current = false;
+      dragStart.current = {
+        px: e.clientX,
+        py: e.clientY,
+        panX: panRef.current.x,
+        panY: panRef.current.y,
+      };
+    }
   }, []);
 
-  const onPointerDown = useCallback(
+  const onPointerMove = useCallback(
     (e: React.PointerEvent) => {
-      if (e.button !== 0) return;
-      // Don't capture yet: a plain click must reach the tool card's <Link>.
-      // We only start (and capture) a drag once the pointer actually moves.
-      pointerActive.current = true;
-      moved.current = false;
-      dragStart.current = { px: e.clientX, py: e.clientY, panX: pan.x, panY: pan.y };
+      const p = pointers.current.get(e.pointerId);
+      if (!p) return;
+      p.x = e.clientX;
+      p.y = e.clientY;
+
+      // Two fingers → pinch-zoom the canvas (mirrors the desktop wheel zoom).
+      if (pointers.current.size >= 2 && pinchStart.current) {
+        const [a, b] = [...pointers.current.values()];
+        const ratio = distance(a, b) / (pinchStart.current.dist || 1);
+        applyScale(pinchStart.current.scale * ratio);
+        return;
+      }
+
+      // One pointer → pan (after a small threshold so taps still register).
+      const dx = e.clientX - dragStart.current.px;
+      const dy = e.clientY - dragStart.current.py;
+      if (!moved.current && Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
+      if (!moved.current) {
+        moved.current = true;
+        setDragging(true);
+        (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+      }
+      applyPan({ x: dragStart.current.panX + dx, y: dragStart.current.panY + dy });
     },
-    [pan],
+    [applyPan, applyScale],
   );
 
-  const onPointerMove = useCallback((e: React.PointerEvent) => {
-    if (!pointerActive.current) return;
-    const dx = e.clientX - dragStart.current.px;
-    const dy = e.clientY - dragStart.current.py;
-    if (!moved.current && Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
-    if (!moved.current) {
-      moved.current = true;
-      setDragging(true);
-      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-    }
-    setPan({ x: dragStart.current.panX + dx, y: dragStart.current.panY + dy });
-  }, []);
-
   const endDrag = useCallback((e: React.PointerEvent) => {
-    pointerActive.current = false;
-    setDragging(false);
+    pointers.current.delete(e.pointerId);
     const el = e.currentTarget as HTMLElement;
     if (el.hasPointerCapture?.(e.pointerId)) el.releasePointerCapture(e.pointerId);
+    if (pointers.current.size < 2) pinchStart.current = null;
+    if (pointers.current.size === 1) {
+      // One finger remains after a pinch → rebase the pan origin so it doesn't jump.
+      const [only] = [...pointers.current.values()];
+      dragStart.current = { px: only.x, py: only.y, panX: panRef.current.x, panY: panRef.current.y };
+      moved.current = true;
+    }
+    if (pointers.current.size === 0) setDragging(false);
   }, []);
 
   const handleSearch = (value: string) => {
     setQuery(value);
-    setPan({ x: 0, y: 0 }); // re-center so matches gather in view
+    applyPan({ x: 0, y: 0 }); // re-center so matches gather in view
   };
 
   return (
@@ -230,8 +282,8 @@ export function ToolPool({ tools }: ToolPoolProps) {
         <button
           type="button"
           onClick={() => {
-            setPan({ x: 0, y: 0 });
-            setScale(1);
+            applyPan({ x: 0, y: 0 });
+            applyScale(1);
           }}
           aria-label="Recenter"
           className="absolute bottom-6 right-6 z-20 flex size-11 items-center justify-center rounded-full border border-border bg-card/90 text-foreground shadow-lg backdrop-blur-xl transition-colors hover:bg-muted"
