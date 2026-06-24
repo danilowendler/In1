@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 import { siteConfig } from "@/lib/site";
+import { isSafeRedirectUrl } from "@/lib/safe-url";
 
 export async function GET(
   _request: Request,
@@ -16,7 +17,7 @@ export async function GET(
       .eq("code", code)
       .maybeSingle();
 
-    if (data?.target_url) {
+    if (data?.target_url && isSafeRedirectUrl(data.target_url)) {
       // Best-effort click count; don't block the redirect on it.
       void supabase
         .from("short_urls")
