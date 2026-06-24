@@ -161,6 +161,20 @@ const NumberBaseConverterTool = dynamic(
 );
 const JsonToCsvTool = dynamic(() => import("./json-to-csv/json-to-csv-tool"), { ssr: false, loading });
 const CsvToJsonTool = dynamic(() => import("./csv-to-json/csv-to-json-tool"), { ssr: false, loading });
+const JsonToYamlTool = dynamic(() => import("./json-to-yaml/json-to-yaml-tool"), { ssr: false, loading });
+const CronExpressionParserTool = dynamic(
+  () => import("./cron-expression-parser/cron-expression-parser-tool"),
+  { ssr: false, loading },
+);
+const BarcodeGeneratorTool = dynamic(
+  () => import("./barcode-generator/barcode-generator-tool"),
+  { ssr: false, loading },
+);
+const WifiQrCodeGeneratorTool = dynamic(
+  () => import("./wifi-qr-code-generator/wifi-qr-code-generator-tool"),
+  { ssr: false, loading },
+);
+const VcardQrCodeTool = dynamic(() => import("./vcard-qr-code/vcard-qr-code-tool"), { ssr: false, loading });
 
 export function ToolProcessor({ tool }: { tool: Tool }) {
   if (tool.comingSoon) {
@@ -268,6 +282,16 @@ export function ToolProcessor({ tool }: { tool: Tool }) {
       return <JsonToCsvTool />;
     case "csv-to-json":
       return <CsvToJsonTool />;
+    case "json-to-yaml":
+      return <JsonToYamlTool />;
+    case "cron-expression-parser":
+      return <CronExpressionParserTool />;
+    case "barcode-generator":
+      return <BarcodeGeneratorTool />;
+    case "wifi-qr-code-generator":
+      return <WifiQrCodeGeneratorTool />;
+    case "vcard-qr-code":
+      return <VcardQrCodeTool />;
     default:
       return (
         <div className="rounded-xl border border-dashed border-border bg-muted/30 py-16 text-center text-sm text-muted-foreground">

@@ -2598,6 +2598,271 @@ export const tools: Tool[] = [
       { q: "Is it free?", a: "Yes. The CSV to JSON converter is completely free, with no account and no limits." },
     ],
   },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "json-to-yaml",
+    category: "web",
+    name: "JSON to YAML",
+    shortDescription: "Convert between JSON and YAML in both directions.",
+    icon: "braces",
+    processing: "client",
+    keywords: ["json to yaml", "yaml to json", "convert json yaml", "json yaml converter", "yaml converter"],
+    metaTitle: "JSON to YAML — Convert JSON and YAML Online Free | In1",
+    metaDescription:
+      "Convert JSON to YAML and YAML to JSON online for free. Clean two-space indentation, error messages for invalid input, copy in one click. Private, runs in your browser.",
+    h1: "JSON to YAML converter",
+    intro:
+      "Paste JSON to get clean YAML, or paste YAML to get formatted JSON. The conversion runs both ways, validates your input and reports errors clearly — all instantly in your browser.",
+    sections: [
+      {
+        heading: "Two formats for the same data",
+        body: "JSON and YAML are two of the most common ways to represent structured data, and they describe exactly the same kinds of things — objects, lists, strings, numbers and booleans — just with different syntax. JSON, with its braces, brackets and quotes, is compact and universal, the lingua franca of APIs and JavaScript. YAML, with its indentation and minimal punctuation, is easier for humans to read and write, which is why it dominates configuration files for tools like Docker, Kubernetes, CI pipelines and countless others. Because both formats are everywhere, you constantly need to move data between them: turning an API's JSON response into readable YAML, or converting a YAML config into the JSON a program expects. This converter does that in either direction. You paste one format and get the other, faithfully preserving the structure and values, so you never have to translate the nesting and syntax by hand — a process that is tedious and remarkably easy to get wrong on anything but the smallest snippet.",
+      },
+      {
+        heading: "Convert in both directions",
+        body: "A one-way converter only solves half the problem, so In1 handles both directions with a single toggle. Switch it to JSON-to-YAML when you want to take compact, punctuation-heavy JSON and turn it into clean, indented YAML that is pleasant to read and edit — ideal when you are writing or reviewing configuration. Switch it to YAML-to-JSON when you need to feed YAML-authored data into something that only speaks JSON, such as an API, a JavaScript program or a tool that does not parse YAML. The output updates the moment you type or flip the direction, so you can paste into either side and immediately get the other. This bidirectional design means the same tool serves both the person who prefers writing YAML but has to deliver JSON, and the person who receives JSON but wants to read it as YAML. You are never stuck with the wrong format or forced to find a second tool to go back the other way.",
+      },
+      {
+        heading: "Clean output and clear errors",
+        body: "A conversion is only useful if the result is correct and the formatting is sensible, so In1 produces clean output you can use directly. YAML is generated with consistent two-space indentation, the widely accepted convention, and without arbitrary line wrapping that would mangle long string values. JSON is pretty-printed with proper indentation so it is easy to read and review rather than crammed onto one line. Just as important is what happens when the input is wrong. Both JSON and YAML have strict syntax, and a misplaced comma, a bad indent or an unclosed quote makes the input unparseable. Instead of failing silently or producing garbage, the converter validates your input and shows a clear error message describing what went wrong, so you can find and fix the problem quickly. That feedback turns the tool into a lightweight validator as well as a converter: if it produces output, your input was well-formed, and if it does not, it tells you why.",
+      },
+      {
+        heading: "Private by design — converted in your browser",
+        body: "Configuration and data files often hold sensitive details: hostnames, settings, structure that reveals how an internal system is built, sometimes even credentials that should never have been there. There is no reason to send any of that to a server just to reshape its syntax. In1 performs the entire JSON-and-YAML conversion locally in your browser using a well-established parsing library bundled into the page. Nothing is uploaded, nothing is stored and there is no account to create. The conversion happens instantly because there is no network round trip, and it works exactly the same offline as online, which is handy when you are deep in a project on a locked-down network. You can paste a large config and get the converted form immediately, then copy it with a single click. This local-only approach is the responsible default for developer tools that handle configuration, because the data you are converting is frequently something you would never paste into an unknown online service.",
+      },
+      {
+        heading: "Who converts between JSON and YAML?",
+        body: "The need is everywhere in modern software work. DevOps and platform engineers move constantly between the two formats while writing and debugging configuration for containers, orchestration, infrastructure-as-code and CI/CD pipelines, most of which use YAML, while the data and APIs around them use JSON. Back-end developers convert API responses to YAML to read them more easily, or YAML fixtures to JSON for their code. Front-end developers turn YAML content files into the JSON their apps consume. Site reliability engineers reshape configuration between formats while troubleshooting. Technical writers convert example data so documentation can show both forms. QA engineers translate test data between the format a tool emits and the format another expects. Even people new to YAML paste in some JSON to see the equivalent and learn the syntax by comparison. For all of them, a converter that goes both ways, formats the output cleanly, reports errors plainly and keeps the data on the device is exactly the quick, trustworthy tool the job calls for.",
+      },
+    ],
+    howTo: [
+      { name: "Choose a direction", text: "Pick JSON to YAML or YAML to JSON." },
+      { name: "Paste your data", text: "Drop in the JSON or YAML you want to convert." },
+      { name: "Read the result", text: "The converted format appears instantly, cleanly formatted, with errors flagged if the input is invalid." },
+      { name: "Copy it out", text: "Copy the converted output with one click." },
+    ],
+    faq: [
+      { q: "Does it convert both ways?", a: "Yes. You can convert JSON to YAML and YAML to JSON with a single toggle." },
+      { q: "What indentation does the YAML use?", a: "Two-space indentation, the widely accepted convention, with no arbitrary line wrapping of long values." },
+      { q: "What happens if my input is invalid?", a: "The converter validates the input and shows a clear error message instead of producing garbled output." },
+      { q: "Is my data uploaded anywhere?", a: "No. The conversion runs locally in your browser, so your data never leaves your device." },
+      { q: "Is the JSON output formatted?", a: "Yes. JSON is pretty-printed with proper indentation so it's easy to read and review." },
+      { q: "Is it free?", a: "Yes. The JSON to YAML converter is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "cron-expression-parser",
+    category: "web",
+    name: "Cron Expression Parser",
+    shortDescription: "Translate a cron expression into plain English.",
+    icon: "clock",
+    processing: "client",
+    keywords: ["cron expression parser", "cron to english", "cron parser", "crontab generator", "explain cron"],
+    metaTitle: "Cron Expression Parser — Cron to English Online Free | In1",
+    metaDescription:
+      "Translate a cron expression into plain English online for free. Understand exactly when a schedule runs, with examples and error messages. Private, runs in your browser.",
+    h1: "Cron expression parser",
+    intro:
+      "Paste a cron expression and instantly read, in plain English, exactly when it runs. Tap an example to see the format, and get a clear error if the expression is invalid — all in your browser.",
+    sections: [
+      {
+        heading: "Cron, finally in plain English",
+        body: "Cron expressions are how scheduled tasks are defined across servers, build systems and countless tools, but their compact syntax is famously hard to read. A line like '0 9 * * 1-5' encodes a schedule in five terse fields, and unless you work with them daily, decoding what it actually means is slow and error-prone. This parser removes the guesswork by translating any cron expression into a clear, human-readable sentence. Paste the expression and it tells you, in plain English, exactly when the job runs — for that example, 'at 09:00, Monday through Friday'. Instead of mentally parsing each field and reconstructing the schedule in your head, you read it like a sentence. This is invaluable whether you are writing a new schedule and want to confirm it does what you intend, or reading someone else's cron line and trying to understand what it triggers. The translation turns an opaque string into something anyone can verify at a glance.",
+      },
+      {
+        heading: "Understand each field with confidence",
+        body: "A standard cron expression has five fields, in order: minute, hour, day of month, month, and day of week. Each can hold a specific value, a list, a range, a step like 'every fifteen', or a wildcard meaning 'every'. The combinations are powerful but subtle, and the interactions between the day-of-month and day-of-week fields in particular trip up even experienced engineers. By turning the whole expression into a sentence, the parser makes the combined meaning of all five fields obvious, so you do not have to reason about each one in isolation and then try to merge them correctly in your head. This is especially helpful for the edge cases where a small change has a surprising effect — adding a step value, narrowing a range, or switching a wildcard to a specific value can shift a schedule in ways that are not obvious from the raw text but are immediately clear once the expression is spelled out in words you can read and sanity-check.",
+      },
+      {
+        heading: "Examples to learn the format",
+        body: "If you do not write cron expressions often, remembering the field order and syntax is half the battle. To make the tool approachable, In1 includes a set of common examples you can tap to load instantly — a weekday morning schedule, an every-fifteen-minutes interval, a monthly run, a weekly off-hours job. Each one shows both the expression and a short note about what it does, so you can see the pattern and adapt it to your own needs rather than starting from a blank field and a half-remembered format. Loading an example also immediately shows its plain-English translation, which reinforces how each part of the syntax maps to a real schedule. This makes the parser a learning aid as much as a decoder: by tapping through a few examples and reading both the raw expression and its meaning side by side, you build an intuition for how cron works that sticks far better than reading a syntax table.",
+      },
+      {
+        heading: "Clear errors for invalid expressions",
+        body: "Cron syntax is unforgiving, and a small mistake — a field out of range, a stray character, the wrong number of fields — produces a schedule that does not mean what you think, or does not parse at all. The dangerous case is the one that looks plausible but is wrong, because a misread schedule might run a job at the wrong time or not at all, and you may not notice until something breaks. In1 validates the expression as you type and, when it cannot make sense of it, shows a clear error message instead of guessing or staying silent. That immediate feedback lets you catch a malformed expression the moment you write it, while you still have the context to fix it, rather than discovering the problem later when a scheduled task misbehaves. Treating a failed parse as useful information — a signal that the expression needs attention — is part of what makes the tool trustworthy: when it does give you a translation, you know the expression was well-formed.",
+      },
+      {
+        heading: "Who uses a cron parser?",
+        body: "Cron is a backbone of automation, so the audience is broad. Back-end and DevOps engineers write and review cron expressions for scheduled jobs, cron tables, container orchestration and CI pipelines, and use a parser to confirm a schedule before deploying it. Site reliability engineers decode existing cron lines while investigating why a job ran — or did not — at a particular time. System administrators manage crontabs across servers and check that each entry means what they intend. Developers setting up scheduled functions on serverless platforms verify their expressions. Data engineers schedule recurring pipelines and want to be sure of the timing. QA and support staff occasionally need to understand a schedule reported in a ticket. Even people new to cron use the parser to learn the syntax and avoid the classic mistakes. For all of them, instantly turning a cryptic five-field string into a sentence they can read — with examples to learn from and clear errors when something is wrong — makes working with schedules far less risky.",
+      },
+    ],
+    howTo: [
+      { name: "Enter an expression", text: "Type or paste a five-field cron expression." },
+      { name: "Or tap an example", text: "Load a common example to see the format and its meaning." },
+      { name: "Read the schedule", text: "The parser shows in plain English exactly when the job runs." },
+      { name: "Fix any errors", text: "If the expression is invalid, a clear message tells you what's wrong." },
+    ],
+    faq: [
+      { q: "What cron format does it use?", a: "The standard five-field format: minute, hour, day of month, month and day of week." },
+      { q: "Does it tell me the next run time?", a: "It translates the expression into a plain-English description of when it runs; it focuses on explaining the schedule rather than computing future dates." },
+      { q: "What if my expression is invalid?", a: "The parser validates the input and shows a clear error message instead of guessing." },
+      { q: "Are there examples to start from?", a: "Yes. You can tap common examples to load them and see both the expression and its meaning." },
+      { q: "Is anything uploaded?", a: "No. Parsing runs locally in your browser, so your expressions never leave your device." },
+      { q: "Is it free?", a: "Yes. The cron expression parser is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "barcode-generator",
+    category: "web",
+    name: "Barcode Generator",
+    shortDescription: "Create barcodes in Code 128, EAN, UPC and more, as PNG.",
+    icon: "barcode",
+    processing: "client",
+    keywords: ["barcode generator", "create barcode", "code 128 generator", "ean barcode", "upc barcode generator"],
+    metaTitle: "Barcode Generator — Create Barcodes Online Free | In1",
+    metaDescription:
+      "Generate barcodes online for free in Code 128, Code 39, EAN-13, EAN-8, UPC, ITF-14 and Codabar. Download as PNG. Validated input, private — runs in your browser.",
+    h1: "Barcode generator",
+    intro:
+      "Type a value, pick a barcode format and get a clean, scannable barcode you can download as a PNG. Multiple symbologies are supported, input is validated, and everything is generated in your browser.",
+    sections: [
+      {
+        heading: "Generate scannable barcodes in seconds",
+        body: "Barcodes turn a string of characters into a pattern that a scanner can read instantly and reliably, and they remain the backbone of retail, inventory, logistics and asset tracking. Creating one used to mean specialized software or a paid service, but it is really just a matter of encoding your value into the right pattern of bars. This generator does exactly that in your browser: you type a value, choose a format, and a crisp barcode appears, ready to download. There is no account to create and no software to install. Whether you need a single label for a product, a code for an asset tag, or a batch of barcodes for an inventory system, you can produce them on demand. The output is a clean image at a resolution suitable for printing or embedding, with the human-readable value shown beneath the bars, so anyone can read the code even without a scanner. It is the fast, free way to get a usable barcode without the overhead of dedicated tools.",
+      },
+      {
+        heading: "Choose the right symbology",
+        body: "There is no single 'barcode' — there are many symbologies, each suited to different purposes, and using the right one matters because scanners and systems expect specific formats. In1 supports the most widely used ones. Code 128 is the flexible workhorse that encodes any text and numbers, ideal for shipping, packaging and internal labels. Code 39 is common in industrial and ID applications. EAN-13 and EAN-8 are the retail product codes used on consumer goods worldwide, while UPC-A is the equivalent standard in North America. ITF-14 is used on shipping cartons, and Codabar appears in libraries, blood banks and logistics. Being able to pick the symbology means you can generate exactly the kind of barcode your scanner, retailer or system requires, rather than being limited to one format that may not be accepted. Switching formats updates the barcode immediately, so you can see how the same value looks across symbologies and choose the one that fits your use case.",
+      },
+      {
+        heading: "Validation so your barcode actually scans",
+        body: "Different barcode formats have strict rules about what they can encode — EAN-13 needs the right number of digits, UPC has its own length requirement, and the numeric-only formats reject letters. A barcode that violates these rules either will not generate or, worse, produces something that looks like a barcode but fails to scan, which is the kind of error you only discover at the worst possible moment. In1 validates your input against the chosen format and tells you clearly when the value is not valid for it, explaining that the length or characters do not fit. This prevents you from printing a sheet of labels only to find they are unreadable. It also helps you learn each format's requirements, since the immediate feedback shows you exactly what a given symbology will and will not accept. When the tool does render a barcode, you can trust that it is well-formed for that format and stands a proper chance of scanning correctly on real hardware.",
+      },
+      {
+        heading: "Private by design — generated in your browser",
+        body: "The values behind barcodes can be meaningful business data: product identifiers, internal SKUs, asset tags, tracking numbers and codes that map to your systems. There is no reason to send that information to a third-party server to turn it into bars. In1 generates every barcode locally in your browser, rendering the pattern onto a canvas on your own device. Nothing is uploaded, nothing is stored and there is no account. Generation is instant because there is no network round trip, and it works the same offline as online, so you can produce labels even on a machine with no internet access. The result downloads as a standard PNG you can print, embed in a document, or drop into a label template. This local-only approach keeps your identifiers and codes private, which matters when the values encode something about your inventory, your products or your operations that you would not want exposed by pasting it into an unknown online tool.",
+      },
+      {
+        heading: "Who uses a barcode generator?",
+        body: "The need spans businesses large and small. Small retailers and online sellers generate product barcodes for labels and inventory. Warehouse and logistics teams create codes for cartons, shelves and shipments. Office and IT staff produce asset tags to track equipment. Event organizers make codes for tickets and passes. Makers and small manufacturers label their products for sale. Librarians and archivists generate Codabar codes for cataloguing. Developers building point-of-sale, inventory or tracking systems create test barcodes while building and debugging. Anyone setting up a system that relies on scanning needs a way to produce the codes themselves, and a generator that supports the common symbologies, validates the input, and exports a clean printable PNG — all without an account or upload — covers that need directly. Because it runs in the browser and is free, it suits both a quick one-off label and the repeated generation of codes for an ongoing operation, without committing to dedicated barcode software.",
+      },
+    ],
+    howTo: [
+      { name: "Pick a format", text: "Choose the barcode symbology you need, such as Code 128 or EAN-13." },
+      { name: "Enter your value", text: "Type the text or number to encode, following the format's rules." },
+      { name: "Check it's valid", text: "The barcode renders instantly, and invalid input is flagged with a clear message." },
+      { name: "Download the PNG", text: "Download the barcode as a PNG ready to print or embed." },
+    ],
+    faq: [
+      { q: "Which barcode formats are supported?", a: "Code 128, Code 39, EAN-13, EAN-8, UPC-A, ITF-14 and Codabar." },
+      { q: "Why won't my value generate?", a: "Each format has rules about length and characters. If the value doesn't fit the chosen format, the tool flags it so you can correct it." },
+      { q: "What format is the download?", a: "A PNG image, suitable for printing on labels or embedding in documents." },
+      { q: "Is the value uploaded anywhere?", a: "No. The barcode is generated locally in your browser, so your value never leaves your device." },
+      { q: "Does the barcode show the number?", a: "Yes. The human-readable value is shown beneath the bars on supported formats." },
+      { q: "Is it free?", a: "Yes. The barcode generator is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "wifi-qr-code-generator",
+    category: "web",
+    name: "WiFi QR Code Generator",
+    shortDescription: "Make a QR code that connects to your WiFi when scanned.",
+    icon: "wifi",
+    processing: "client",
+    keywords: ["wifi qr code", "wifi qr code generator", "qr code for wifi", "wifi password qr", "guest wifi qr"],
+    metaTitle: "WiFi QR Code Generator — Connect by Scanning Free | In1",
+    metaDescription:
+      "Generate a WiFi QR code online for free. Guests scan to connect instantly — no typing the password. Supports WPA, WEP and open networks. Private, runs in your browser.",
+    h1: "WiFi QR code generator",
+    intro:
+      "Create a QR code that connects phones to your WiFi automatically when scanned — no spelling out the password. Enter your network details, choose the security type, and download a PNG to print or share.",
+    sections: [
+      {
+        heading: "Let guests connect by scanning, not typing",
+        body: "Sharing WiFi the usual way is a small but constant annoyance: you read out a long, cryptic password, your guest mistypes it, and you both try again. A WiFi QR code solves this completely. When someone points their phone's camera at the code, the device reads the network name and password and offers to connect with a single tap — no typing, no spelling out characters, no mistakes. This is the same standard built into modern phones, so it just works without any special app. You generate the code once and anyone can use it. It is perfect for a home where visitors come and go, and it transforms the experience from a fiddly exchange into an instant, effortless connection. Because the QR code encodes the credentials directly, even a complicated, secure password — exactly the kind you should be using — becomes trivial to share, which means you never have to weaken your WiFi security just to make it easier for guests to get online.",
+      },
+      {
+        heading: "Perfect for cafes, offices and guest networks",
+        body: "WiFi QR codes are especially valuable anywhere people regularly need to get online. Cafes and restaurants print the code on table cards or receipts so customers connect in seconds without bothering staff. Offices and co-working spaces put it in meeting rooms and reception areas for visitors. Holiday rentals and hotels include it in the welcome pack so every guest can join without a support call. Shops, clinics and waiting rooms offer it to customers. Even at home, a printed code by the door or on the fridge saves you from reciting the password to every visitor. Anywhere a guest network exists, a QR code is the cleanest way to share it: it works for everyone, it does not require handing out the raw password verbally, and it can be reprinted or replaced whenever the password changes. A single small printout removes a recurring point of friction for both the people offering the WiFi and the people trying to use it.",
+      },
+      {
+        heading: "Supports WPA, WEP and open networks",
+        body: "For the QR code to work, it has to describe your network's security correctly, so In1 lets you choose the encryption type. WPA and WPA2 cover virtually all modern secured networks and are the default. WEP is available for older equipment that still uses it. And for open networks with no password — common on genuinely public guest WiFi — you can select the no-password option, and the code is built accordingly without a password field. You can also mark the network as hidden if it does not broadcast its name, so the scanning device knows to look for it. Getting these details right matters, because a QR code that specifies the wrong security type may fail to connect even when the name and password are correct. By giving you the options explicitly and building the standard WiFi payload behind the scenes, the generator ensures the code matches how your network is actually configured, which is what makes it reliably connect across the wide range of phones people will scan it with.",
+      },
+      {
+        heading: "Private by design — your password stays with you",
+        body: "A WiFi QR code contains your network password in plain form, so where that password is handled matters enormously. In1 generates the code entirely in your browser. The network name and password you enter are used to build the QR code right on your own device and are never uploaded, transmitted or stored anywhere. There is no account, no logging and nothing left behind when you close the tab. This is the only safe way to build such a tool: a WiFi generator that sent your password to a server would be handing over the keys to your network, which is exactly what you must avoid. Because everything is local, generation is also instant and works offline, and the resulting PNG is yours alone to print or share as you see fit. You get the convenience of an instant, scannable code with the assurance that your actual WiFi password never travelled across the internet to a stranger's machine just to be turned into an image.",
+      },
+      {
+        heading: "Download, print and share",
+        body: "Once your code is ready, you download it as a standard PNG image, which you can use however suits your space. Print it on a card for the coffee table, add it to a framed sign for reception, include it in a digital welcome document, drop it into a poster, or simply stick it on the fridge. Because it is an ordinary image, it fits into any design or print workflow without special handling. If your password changes, you generate a fresh code in seconds and reprint it — far easier than re-explaining a new password to everyone. The code works with the built-in camera on modern phones, so guests need nothing beyond the device already in their pocket. This combination of an instant, private generator and a plain, printable output is what makes WiFi QR codes so practical: a one-time bit of setup that quietly removes the password hassle for everyone who visits, for as long as the code is up.",
+      },
+    ],
+    howTo: [
+      { name: "Enter your network name", text: "Type the exact SSID of your WiFi network." },
+      { name: "Add the password and security", text: "Enter the password and choose WPA, WEP or no password; mark it hidden if needed." },
+      { name: "Generate the code", text: "A scannable WiFi QR code appears instantly." },
+      { name: "Download and print", text: "Download the PNG to print or share so guests can scan to connect." },
+    ],
+    faq: [
+      { q: "How does a WiFi QR code work?", a: "It encodes the network name, password and security type. Modern phones read it with the camera and offer to connect with one tap." },
+      { q: "Do guests need a special app?", a: "No. The built-in camera on modern iPhones and Android phones recognizes WiFi QR codes natively." },
+      { q: "Which security types are supported?", a: "WPA/WPA2, WEP and open (no password) networks, with an option to mark the network hidden." },
+      { q: "Is my WiFi password uploaded anywhere?", a: "No. The code is generated entirely in your browser, so your password never leaves your device." },
+      { q: "Can I print the QR code?", a: "Yes. It downloads as a PNG you can print on a card, sign or poster, or share digitally." },
+      { q: "Is it free?", a: "Yes. The WiFi QR code generator is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "vcard-qr-code",
+    category: "web",
+    name: "vCard QR Code Generator",
+    shortDescription: "Create a QR code that saves your contact details when scanned.",
+    icon: "contact",
+    processing: "client",
+    keywords: ["vcard qr code", "contact qr code", "qr code business card", "vcard generator", "qr code contact details"],
+    metaTitle: "vCard QR Code Generator — Contact QR Code Free | In1",
+    metaDescription:
+      "Generate a vCard QR code online for free. Scanning saves your name, phone, email and more straight to contacts. Great for business cards. Private, runs in your browser.",
+    h1: "vCard QR code generator",
+    intro:
+      "Create a QR code that adds your contact details to someone's phone when they scan it. Fill in your name, phone, email and more, and download a PNG for your business card, email signature or badge.",
+    sections: [
+      {
+        heading: "Share your contact details with one scan",
+        body: "Exchanging contact details is still surprisingly clumsy: you spell out an email address, dictate a phone number, or hope a paper business card does not get lost. A vCard QR code makes it effortless. It encodes your details in the standard vCard format that phones understand, so when someone scans it, their device offers to save a new contact with your name, number, email and everything else already filled in — no typing, no transcription errors, no missed digits. You create the code once and it works for everyone you meet. This is the modern, frictionless way to hand over your details, and because it uses the universal vCard standard rather than a proprietary system, it works across iPhones and Android phones alike with the built-in camera. Whether you are networking at an event, meeting a new client, or simply want people to be able to save your details reliably, a single scan replaces a whole awkward exchange and ensures your information lands in their contacts exactly as you intended.",
+      },
+      {
+        heading: "Everything that belongs on a business card",
+        body: "A good contact entry is more than a name and number, so the generator lets you include the full set of details that make up a professional identity. Add your first and last name, your mobile number, your email address, your organization, your job title and your website. Each field you fill in becomes part of the vCard, and the ones you leave blank are simply omitted, so the saved contact contains exactly what you choose to share and nothing extra. This means the same tool works for a complete professional profile and for a minimal name-and-number card, depending on what you want to give out. Because the details are encoded directly into the QR code, the recipient gets a properly structured contact — with the phone in the phone field and the email in the email field — rather than a blob of text they have to sort out themselves. It is the digital equivalent of a complete, correctly formatted business card that saves itself.",
+      },
+      {
+        heading: "Put it anywhere people will see it",
+        body: "Once generated, the QR code is a plain PNG image, which means you can place it wherever it is useful. Print it on your physical business card so a scan saves your details instantly alongside the printed version. Add it to your email signature so every message gives recipients a one-tap way to save your contact. Put it on a conference badge, a name tag, a slide at the end of a talk, a poster, or a storefront. Include it in a digital resume or a personal website. Because it is an ordinary image, it drops into any design or print workflow without special tools. And if your details change — a new number, a new role, a new company — you generate a fresh code in seconds and update wherever it appears. This flexibility is what makes a vCard QR code so practical: a single small graphic that turns any surface, physical or digital, into a way for people to capture your contact information correctly and instantly.",
+      },
+      {
+        heading: "Private by design — your details stay on your device",
+        body: "Your contact information is personal, and how a generator handles it matters. In1 builds the vCard QR code entirely in your browser. The name, number, email and other details you enter are assembled into the QR code on your own device and are never uploaded, transmitted or stored on any server. There is no account, no tracking and nothing retained after you close the tab. This local-only approach means you are not registering your personal details with a third-party service or trusting them to keep your information safe — the code is yours, generated privately, and the only people who ever receive your details are the ones you choose to show the code to. Because everything runs locally, generation is instant and works offline too. You get the convenience of a polished, scannable contact card with the assurance that creating it did not involve handing your personal information to anyone, which is exactly the standard a tool that handles your identity should meet.",
+      },
+      {
+        heading: "Who uses a vCard QR code?",
+        body: "It has become a staple of modern networking and professional presence. Salespeople, founders and freelancers add it to business cards and email signatures so prospects and contacts can save their details in a tap. Conference and event attendees wear it on badges to make exchanging contacts painless. Speakers put it on a closing slide so the audience can connect. Real estate agents, consultants and tradespeople include it on signage and marketing material. Job seekers add it to a resume or portfolio. Small businesses place it at the point of sale or on storefronts so customers can save their contact and find them again. Anyone who regularly hands out their details — and wants them saved accurately rather than mistyped — benefits from a code that encodes a full, standard contact and works with any modern phone's camera. Because the generator is free, private and produces a printable image, it fits a printed card, a digital signature and everything in between, without an account or any upload of personal data.",
+      },
+    ],
+    howTo: [
+      { name: "Fill in your details", text: "Enter your name, phone, email and any other contact fields you want to share." },
+      { name: "Watch the code build", text: "The vCard QR code updates instantly as you type." },
+      { name: "Download the PNG", text: "Download the image once your details are complete." },
+      { name: "Add it anywhere", text: "Put it on a business card, email signature, badge or website." },
+    ],
+    faq: [
+      { q: "What happens when someone scans it?", a: "Their phone reads the vCard and offers to save a new contact with your name, number, email and other details pre-filled." },
+      { q: "Which details can I include?", a: "Name, phone, email, organization, job title and website. Blank fields are simply left out of the contact." },
+      { q: "Do recipients need an app?", a: "No. The built-in camera on modern iPhones and Android phones recognizes vCard QR codes natively." },
+      { q: "Are my details uploaded anywhere?", a: "No. The code is generated entirely in your browser, so your contact details never leave your device." },
+      { q: "Can I print it on a business card?", a: "Yes. It downloads as a PNG you can print on cards, badges and signage or add to a digital signature." },
+      { q: "Is it free?", a: "Yes. The vCard QR code generator is completely free, with no account and no limits." },
+    ],
+  },
 ];
 
 // --- Helpers -----------------------------------------------------------------

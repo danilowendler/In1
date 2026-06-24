@@ -48,6 +48,10 @@ import {
   Regex,
   FileSpreadsheet,
   FileJson,
+  Clock,
+  Barcode,
+  Wifi,
+  Contact,
   type LucideIcon,
 } from "lucide-react";
 
@@ -106,6 +110,10 @@ export const iconMap = {
   regex: Regex,
   "file-spreadsheet": FileSpreadsheet,
   "file-json": FileJson,
+  clock: Clock,
+  barcode: Barcode,
+  wifi: Wifi,
+  contact: Contact,
 } satisfies Record<string, LucideIcon>;
 
 export type IconName = keyof typeof iconMap;
