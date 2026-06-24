@@ -41,6 +41,13 @@ import {
   GitCompare,
   FileCode2,
   SquarePen,
+  Fingerprint,
+  CalendarClock,
+  Code2,
+  KeySquare,
+  Regex,
+  FileSpreadsheet,
+  FileJson,
   type LucideIcon,
 } from "lucide-react";
 
@@ -92,6 +99,13 @@ export const iconMap = {
   "git-compare": GitCompare,
   "file-code": FileCode2,
   "square-pen": SquarePen,
+  fingerprint: Fingerprint,
+  "calendar-clock": CalendarClock,
+  "code-2": Code2,
+  "key-square": KeySquare,
+  regex: Regex,
+  "file-spreadsheet": FileSpreadsheet,
+  "file-json": FileJson,
 } satisfies Record<string, LucideIcon>;
 
 export type IconName = keyof typeof iconMap;

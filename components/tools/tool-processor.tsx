@@ -137,6 +137,30 @@ const MarkdownEditorTool = dynamic(
   () => import("./markdown-editor/markdown-editor-tool"),
   { ssr: false, loading },
 );
+const UuidGeneratorTool = dynamic(
+  () => import("./uuid-generator/uuid-generator-tool"),
+  { ssr: false, loading },
+);
+const TimestampConverterTool = dynamic(
+  () => import("./timestamp-converter/timestamp-converter-tool"),
+  { ssr: false, loading },
+);
+const UrlEncoderDecoderTool = dynamic(
+  () => import("./url-encoder-decoder/url-encoder-decoder-tool"),
+  { ssr: false, loading },
+);
+const HtmlEntityEncoderTool = dynamic(
+  () => import("./html-entity-encoder/html-entity-encoder-tool"),
+  { ssr: false, loading },
+);
+const JwtDecoderTool = dynamic(() => import("./jwt-decoder/jwt-decoder-tool"), { ssr: false, loading });
+const RegexTesterTool = dynamic(() => import("./regex-tester/regex-tester-tool"), { ssr: false, loading });
+const NumberBaseConverterTool = dynamic(
+  () => import("./number-base-converter/number-base-converter-tool"),
+  { ssr: false, loading },
+);
+const JsonToCsvTool = dynamic(() => import("./json-to-csv/json-to-csv-tool"), { ssr: false, loading });
+const CsvToJsonTool = dynamic(() => import("./csv-to-json/csv-to-json-tool"), { ssr: false, loading });
 
 export function ToolProcessor({ tool }: { tool: Tool }) {
   if (tool.comingSoon) {
@@ -226,6 +250,24 @@ export function ToolProcessor({ tool }: { tool: Tool }) {
       return <MarkdownToHtmlTool />;
     case "markdown-editor":
       return <MarkdownEditorTool />;
+    case "uuid-generator":
+      return <UuidGeneratorTool />;
+    case "timestamp-converter":
+      return <TimestampConverterTool />;
+    case "url-encoder-decoder":
+      return <UrlEncoderDecoderTool />;
+    case "html-entity-encoder":
+      return <HtmlEntityEncoderTool />;
+    case "jwt-decoder":
+      return <JwtDecoderTool />;
+    case "regex-tester":
+      return <RegexTesterTool />;
+    case "number-base-converter":
+      return <NumberBaseConverterTool />;
+    case "json-to-csv":
+      return <JsonToCsvTool />;
+    case "csv-to-json":
+      return <CsvToJsonTool />;
     default:
       return (
         <div className="rounded-xl border border-dashed border-border bg-muted/30 py-16 text-center text-sm text-muted-foreground">

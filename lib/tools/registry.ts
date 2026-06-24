@@ -2121,6 +2121,483 @@ export const tools: Tool[] = [
       { q: "Is it free?", a: "Yes. The Markdown editor is completely free, with no account and no limits." },
     ],
   },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "uuid-generator",
+    category: "web",
+    name: "UUID Generator",
+    shortDescription: "Generate random UUID v4 identifiers in bulk, instantly.",
+    icon: "fingerprint",
+    processing: "client",
+    keywords: ["uuid generator", "guid generator", "uuid v4", "generate uuid", "random uuid"],
+    metaTitle: "UUID Generator — Random UUID v4 Online Free | In1",
+    metaDescription:
+      "Generate random UUID v4 identifiers online for free. Create one or many at once, with or without hyphens, upper or lower case. Cryptographically random, in your browser.",
+    h1: "UUID generator",
+    intro:
+      "Generate cryptographically random UUID version 4 identifiers, one at a time or hundreds at once. Choose hyphens and casing, then copy the whole batch with a click — all produced securely in your browser.",
+    sections: [
+      {
+        heading: "What a UUID is and why it is useful",
+        body: "A UUID, or universally unique identifier, is a 128-bit value written as a string like 550e8400-e29b-41d4-a716-446655440000. Its purpose is to give something an identifier that is, for all practical purposes, guaranteed never to collide with another one — even if it was generated on a different machine, in a different system, with no coordination between them. That property makes UUIDs the default choice for primary keys in distributed databases, identifiers for files and records, correlation IDs in logs and traces, idempotency keys for API requests, and anywhere two systems need to agree on a name for something without asking a central authority for the next number. Because the space of possible version 4 UUIDs is astronomically large, the chance of two randomly generated ones matching is so small it can be safely ignored. This tool produces them on demand, so you can grab a fresh identifier whenever you need one without writing a line of code or running a script.",
+      },
+      {
+        heading: "Cryptographically random version 4 UUIDs",
+        body: "There are several UUID versions, and version 4 — the kind this tool generates — is the one built almost entirely from random data. That randomness is what gives it its uniqueness and also makes it unpredictable, which matters when an identifier should not be guessable. In1 generates each UUID using the browser's built-in cryptographically secure random number generator, the same source recommended for security-sensitive work, rather than a weak pseudo-random function that could produce predictable or repeating values. The result is a properly formed, standards-compliant version 4 UUID with the correct version and variant bits set, indistinguishable from one produced by a server library. Whether you need an identifier for a throwaway test, a database seed, a configuration file or a production system, you can trust that what comes out is both correctly formatted and genuinely random. And because the generation happens entirely on your own device, the values are never transmitted or logged anywhere before you use them.",
+      },
+      {
+        heading: "Generate one or many at once",
+        body: "Sometimes you need a single identifier, and sometimes you need a whole column of them. In1 lets you set exactly how many UUIDs to generate, up to a sensible maximum, and produces the entire batch instantly. This is a real time-saver when you are seeding a database table, building test fixtures, creating a list of identifiers for a spreadsheet, or populating mock data for development. Instead of generating them one at a time and pasting each into place, you create the whole set in one step and copy it as a block, ready to drop wherever it needs to go. Each identifier in the batch is independently random, so there is no pattern or sequence linking them. Need more later? Generate another batch with a single click. The combination of bulk generation and instant copying turns what could be a tedious, repetitive task into something you finish in seconds, no matter how many identifiers the job calls for.",
+      },
+      {
+        heading: "Format to match your system",
+        body: "Different systems expect UUIDs in slightly different shapes, so the tool gives you control over the format. The standard representation uses lowercase letters and four hyphens separating the five groups of digits, and that is the default because it is what most databases, languages and specifications use. But some contexts want the hyphens removed to save space or to fit a particular column, and some legacy systems or styles prefer uppercase hexadecimal. You can toggle hyphens on or off and switch between lower and upper case, and the whole batch updates to match. This means you do not have to run the output through a separate find-and-replace step to get the exact format your target expects — you choose it up front and copy a batch that is ready to use as-is. Small as these formatting options are, they remove a common source of friction when moving generated identifiers between tools that each have their own conventions. Picking the format once and copying a batch that already matches the destination is much faster than generating in the default shape and reformatting afterward, especially when you are producing dozens of identifiers at a time.",
+      },
+      {
+        heading: "Private, instant and free",
+        body: "Identifiers might seem harmless, but the context around them — the names of unreleased projects, internal systems or test scenarios — often is not, and there is simply no reason to involve a server in generating a random value your own browser can produce. In1 creates every UUID locally using the browser's secure random generator. Nothing is uploaded, nothing is stored and there is no account or sign-up. Generation is instant because there is no network request, and it works exactly the same offline as online, so you can create identifiers on a plane or behind a corporate firewall without a hitch. There are no limits beyond a sensible per-batch maximum, and a single click copies the whole batch to your clipboard. It is a small, focused utility, but one that developers, testers and data engineers reach for constantly, and having it generate properly random, correctly formatted UUIDs privately and instantly is exactly what that everyday need calls for.",
+      },
+    ],
+    howTo: [
+      { name: "Set the quantity", text: "Choose how many UUIDs you want, from one to the maximum." },
+      { name: "Pick a format", text: "Toggle hyphens and choose lower or upper case to match your system." },
+      { name: "Generate", text: "Click generate to create a fresh batch of cryptographically random version 4 UUIDs." },
+      { name: "Copy them", text: "Copy the whole batch with one click and paste it wherever you need." },
+    ],
+    faq: [
+      { q: "What version of UUID does this generate?", a: "It generates version 4 UUIDs, which are built from cryptographically secure random data." },
+      { q: "Are the UUIDs really random?", a: "Yes. They are produced with the browser's cryptographically secure random number generator, not a weak pseudo-random function." },
+      { q: "Can I generate many at once?", a: "Yes. You can create a whole batch up to a sensible maximum and copy them all with one click." },
+      { q: "Can I remove the hyphens or use uppercase?", a: "Yes. You can toggle hyphens and switch between lowercase and uppercase to match your system." },
+      { q: "Are the UUIDs sent anywhere?", a: "No. They are generated locally in your browser, so the values never leave your device." },
+      { q: "Is it free?", a: "Yes. The UUID generator is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "timestamp-converter",
+    category: "web",
+    name: "Unix Timestamp Converter",
+    shortDescription: "Convert between Unix timestamps and human-readable dates.",
+    icon: "calendar-clock",
+    processing: "client",
+    keywords: ["unix timestamp converter", "epoch converter", "timestamp to date", "unix time", "epoch to date"],
+    metaTitle: "Unix Timestamp Converter — Epoch to Date Online Free | In1",
+    metaDescription:
+      "Convert Unix timestamps to human-readable dates and back, online and free. Seconds or milliseconds, UTC and local time, with the current epoch shown live. In your browser.",
+    h1: "Unix timestamp converter",
+    intro:
+      "Convert a Unix timestamp into a readable date, or a date into a timestamp, instantly. Supports seconds and milliseconds, shows both UTC and your local time, and displays the current epoch ticking live.",
+    sections: [
+      {
+        heading: "Unix time, made readable",
+        body: "Unix time — also called epoch time — counts the number of seconds that have elapsed since the first of January 1970 at midnight UTC. It is the way most computers, databases, APIs and log files store moments in time, because a single number is compact, unambiguous and easy to compare or do arithmetic on. The trouble is that a number like 1700000000 means nothing to a human reading it. This converter bridges that gap. Paste a timestamp and it instantly shows you the date and time it represents, in formats you can actually read, so you can make sense of a value pulled from a database row, an API response, a JWT, a cookie or a log line. Going the other way, you can enter a normal date and get back the timestamp a system expects. It removes the constant little friction of mentally translating between machine time and human time that anyone working with data runs into.",
+      },
+      {
+        heading: "Seconds or milliseconds, handled automatically",
+        body: "One of the most common sources of confusion with Unix time is the unit. Classic Unix timestamps are measured in seconds, but many systems — JavaScript, lots of APIs and plenty of databases — use milliseconds instead, which makes the number a thousand times larger and three digits longer. Paste the wrong assumption into a naive converter and you get a date thousands of years off. In1 detects the scale for you: a ten-digit value is treated as seconds and a thirteen-digit value as milliseconds, so you usually do not have to think about it at all. It then reports the result in both seconds and milliseconds, so whichever unit the next system expects, you have the right number ready to copy. This automatic handling means you spend less time second-guessing whether a timestamp is off by a factor of a thousand and more time actually using the value.",
+      },
+      {
+        heading: "UTC and your local time, side by side",
+        body: "A moment in time looks different depending on where you are standing, and that difference is a frequent source of bugs and misunderstandings. A timestamp stored in UTC might need to be read in your local zone, or a local date might need to be expressed in UTC for an API. In1 shows you both at once: the ISO 8601 form and the UTC string for the unambiguous, timezone-independent view that servers and standards use, alongside your browser's local time for the version that matches your own clock. Seeing them together makes it easy to reason about scheduling, expiry times, log correlation across regions, and any task where getting the timezone wrong has real consequences. You do not have to do the offset math in your head or open a separate world-clock tool — the converter lays out the same instant in the formats you are most likely to need, so you can copy whichever one fits.",
+      },
+      {
+        heading: "The current timestamp, ticking live",
+        body: "Often you do not have a timestamp to convert — you just need the current one, right now, to drop into a test, a query, a config value or a piece of code. In1 shows the current Unix timestamp at the top of the tool and updates it every second, so the value is always fresh and ready to grab. A single click copies it. This sounds minor, but for developers it replaces a small ritual of opening a console and typing a command just to get 'now' as an epoch value. It is also handy as a reference point while you are converting other timestamps, letting you see at a glance whether a value is in the past or the future relative to the present moment. Because the clock runs entirely in your browser, it reflects your own device's time and keeps ticking whether or not you have a network connection. Copying the current epoch is then a one-click action, which is exactly what you want when you are filling in a value mid-task and do not want to break your flow to look it up elsewhere.",
+      },
+      {
+        heading: "Who uses a timestamp converter?",
+        body: "The audience is anyone who works with time as data. Developers convert epoch values they see in databases, JSON responses, JWTs, cookies and HTTP headers into readable dates while debugging, and grab the current timestamp to use in code and tests. Site reliability and operations engineers correlate log entries across services by translating their timestamps and comparing them in a common timezone. Data analysts make sense of exported datasets where dates are stored as numbers. QA testers check that expiry and scheduling logic behaves correctly by reading the timestamps a system produces. API integrators line up their requests with the time formats a third-party service expects. Even non-developers occasionally need to decode a timestamp they have stumbled across in a file or a URL. For all of them, a converter that handles both directions, both units and both timezones — instantly and privately in the browser — turns an annoying mental conversion into a quick lookup.",
+      },
+    ],
+    howTo: [
+      { name: "Enter a value", text: "Paste a Unix timestamp in seconds or milliseconds, or type a normal date." },
+      { name: "Read the conversion", text: "See the timestamp and the date in seconds, milliseconds, ISO, UTC and local time." },
+      { name: "Grab the current epoch", text: "Copy the live current timestamp shown at the top whenever you need 'now'." },
+      { name: "Copy what you need", text: "Copy any of the formatted values with one click." },
+    ],
+    faq: [
+      { q: "What is a Unix timestamp?", a: "It is the number of seconds (or milliseconds) since 1 January 1970 UTC, the standard way computers store moments in time." },
+      { q: "Does it handle seconds and milliseconds?", a: "Yes. It detects the scale automatically and shows the result in both seconds and milliseconds." },
+      { q: "Does it show UTC and local time?", a: "Yes. You get ISO 8601 and UTC alongside your browser's local time for the same instant." },
+      { q: "Can I get the current timestamp?", a: "Yes. The current Unix timestamp is shown live at the top and updates every second." },
+      { q: "Is anything uploaded?", a: "No. All conversion happens locally in your browser, so your values never leave your device." },
+      { q: "Is it free?", a: "Yes. The timestamp converter is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "url-encoder-decoder",
+    category: "web",
+    name: "URL Encoder / Decoder",
+    shortDescription: "Percent-encode or decode URLs and query strings safely.",
+    icon: "code-2",
+    processing: "client",
+    keywords: ["url encoder", "url decoder", "percent encoding", "encode url", "decode url"],
+    metaTitle: "URL Encoder / Decoder — Percent-Encode Online Free | In1",
+    metaDescription:
+      "Encode or decode URLs and query strings online for free. Percent-encode special characters or decode them back, for full URLs or single components. Private, in your browser.",
+    h1: "URL encoder and decoder",
+    intro:
+      "Percent-encode text so it is safe to put in a URL, or decode an encoded URL back into readable text. Choose between encoding a full URL or a single component, and process everything instantly in your browser.",
+    sections: [
+      {
+        heading: "Why URLs need encoding",
+        body: "URLs are only allowed to contain a limited set of characters. Spaces, accented letters, and many symbols — ampersands, question marks, slashes, plus signs, hash marks and more — have special meaning or are simply not permitted, so they have to be represented in a safe form when they appear in a link or a query string. That safe form is percent-encoding, where each disallowed character is replaced by a percent sign followed by its hexadecimal byte value: a space becomes %20, an ampersand becomes %26, and so on. Without it, a search term containing a space or a parameter value containing an ampersand would break the URL or be misread by the server. This tool does the encoding and decoding for you, so you can take any text and make it URL-safe, or take an encoded URL full of percent signs and turn it back into something a human can read. It removes the need to remember the codes or do the substitution by hand.",
+      },
+      {
+        heading: "Encode a full URL or a single component",
+        body: "Not all encoding is the same, and choosing the wrong kind is a classic mistake. When you encode an entire URL, the characters that structure it — the slashes between path segments, the colon after the scheme, the question mark before the query — must be left intact, or you destroy the URL's meaning. But when you encode a single value that will go inside a URL, such as a query parameter or a path segment, those very same characters need to be encoded so they are treated as data rather than structure. In1 gives you both modes. The component mode encodes everything that is not safe, which is what you want for an individual parameter value. The full-URL mode preserves the reserved structural characters, which is what you want when encoding a complete address. Being able to pick the right one means your encoded output behaves correctly whether you are building a whole link or just escaping a single piece to slot into one.",
+      },
+      {
+        heading: "Decode encoded URLs back to readable text",
+        body: "Encoded URLs are everywhere, and they are nearly impossible to read at a glance. A link copied from a search engine, an analytics tracking URL, a redirect parameter or an API request can be a dense string of percent signs and hex digits that hides what it actually contains. Decoding turns it back into plain text so you can see the real values: the actual search query, the destination of a redirect, the human-readable parameters behind the codes. This is invaluable when you are debugging, auditing where a link really points before you click it, or simply trying to understand a URL someone sent you. In1 decodes both full URLs and individual components, reversing the percent-encoding and restoring spaces, symbols and accented characters to their normal form. If the input is malformed and cannot be decoded cleanly, the tool tells you rather than producing garbage, so you know the string itself is the problem rather than the tool.",
+      },
+      {
+        heading: "Private by design — handled in your browser",
+        body: "The URLs and values people encode or decode are frequently sensitive: links with authentication tokens, tracking parameters, internal addresses, redirect targets or query data that reveals what someone is searching for. There is no reason to send any of that to a third-party server just to swap some characters. In1 performs all encoding and decoding locally in your browser using the platform's own built-in functions, so your URLs never leave your device. Nothing is uploaded, nothing is stored and there is no account to create. The conversion happens the instant you type or switch modes, with no network request, which makes it both immediate and fully functional offline. You can paste a long, parameter-heavy URL and read its decoded form right away, or encode a value and copy the result with a single click. It is the convenience of an online utility with the privacy of doing the work on your own machine — which is exactly what URLs carrying tokens or personal data deserve.",
+      },
+      {
+        heading: "Who uses a URL encoder and decoder?",
+        body: "It is a staple for anyone who builds or inspects links. Web and back-end developers encode query parameters when constructing URLs and decode them when debugging requests, redirects and API calls. SEO and marketing specialists decode tracking and campaign URLs to read the parameters, and encode values when assembling links by hand. QA testers and security researchers decode suspicious or complex URLs to understand exactly what they do before trusting them. Data analysts clean up exported URLs that arrive percent-encoded. Support staff make sense of links shared by users that have been mangled by encoding. Even casual users occasionally need to decode a URL to see where it really leads. Because the tool covers both directions and both the full-URL and single-component cases, and does it instantly and privately, it serves the quick 'what does this link actually say' lookup and the careful construction of a correct, safe URL equally well, without anyone reaching for code.",
+      },
+    ],
+    howTo: [
+      { name: "Choose encode or decode", text: "Pick whether you want to encode text or decode an encoded URL." },
+      { name: "Pick the scope", text: "Choose component encoding for a single value, or full-URL encoding to preserve structure." },
+      { name: "Enter your text", text: "Paste the text or URL you want to convert." },
+      { name: "Copy the result", text: "The converted output appears instantly — copy it with one click." },
+    ],
+    faq: [
+      { q: "What is URL encoding?", a: "It replaces characters that aren't allowed in a URL with a percent sign and their hexadecimal value, like %20 for a space." },
+      { q: "What's the difference between the two modes?", a: "Component mode encodes everything unsafe for a single value; full-URL mode preserves structural characters like slashes and the question mark." },
+      { q: "Can it decode as well as encode?", a: "Yes. You can switch between encoding text and decoding an already-encoded URL back to readable form." },
+      { q: "Is my URL uploaded anywhere?", a: "No. Encoding and decoding run locally in your browser, so your URLs never leave your device." },
+      { q: "What if the input can't be decoded?", a: "If a string is malformed, the tool shows an error instead of producing garbled output." },
+      { q: "Is it free?", a: "Yes. The URL encoder and decoder is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "html-entity-encoder",
+    category: "web",
+    name: "HTML Entity Encoder / Decoder",
+    shortDescription: "Encode characters to HTML entities or decode them back.",
+    icon: "code-2",
+    processing: "client",
+    keywords: ["html entity encoder", "html entity decoder", "html escape", "encode html", "html entities"],
+    metaTitle: "HTML Entity Encoder / Decoder — Escape HTML Online Free | In1",
+    metaDescription:
+      "Encode text to HTML entities or decode entities back to characters online for free. Escape <, >, &, quotes and optionally non-ASCII. Private, instant, in your browser.",
+    h1: "HTML entity encoder and decoder",
+    intro:
+      "Escape characters that have special meaning in HTML — like the angle brackets, ampersand and quotes — into their entity form, or decode entities back into plain characters. Optionally encode all non-ASCII too.",
+    sections: [
+      {
+        heading: "Why HTML needs entities",
+        body: "A handful of characters carry special meaning in HTML, and using them literally where they are not meant as markup breaks the page or, worse, opens a security hole. The less-than and greater-than signs delimit tags, the ampersand begins an entity, and quotes delimit attribute values. If you want to show those characters as text — to display a snippet of code, a math expression, or a company name like 'Tom & Jerry' — you have to write them as HTML entities instead: &lt; for less-than, &gt; for greater-than, &amp; for the ampersand, and so on. Doing this is also the foundation of preventing cross-site scripting, because escaping user-supplied text before putting it into a page stops it from being interpreted as active markup. This tool encodes those characters into their safe entity form for you, so you can drop text into HTML without it being misread as tags, and without having to remember every entity by hand.",
+      },
+      {
+        heading: "Decode entities back to plain text",
+        body: "The reverse problem is just as common: you have HTML full of entities and you want to read or reuse the actual characters. Text scraped from a web page, pulled from an HTML email, or copied out of a database can be littered with &amp;, &lt;, &#39; and numeric codes that make it awkward to read and useless to paste somewhere that expects plain text. Decoding turns all of that back into the characters it represents, so &lt;a href=&quot;x&quot;&gt; becomes the readable tag again and &amp; becomes a simple ampersand. In1 decodes both the named entities and the numeric ones using the browser's own HTML parser, which means it understands the full range of entities a real browser does — not just a short hand-coded list — so even unusual or rare entities are decoded correctly. Whether you are cleaning up scraped content, reading an export, or preparing text for a non-HTML context, decoding restores it to its natural, usable form.",
+      },
+      {
+        heading: "Optionally encode every non-ASCII character",
+        body: "Sometimes escaping the core HTML characters is enough; other times you want to go further and encode every character outside the basic ASCII range as a numeric entity. This is useful when you need maximum compatibility with systems or encodings that might mishandle accented letters, symbols, emoji or characters from non-Latin scripts. With the non-ASCII option turned on, In1 converts each such character into its numeric HTML entity, guaranteeing that the output contains only plain ASCII while still rendering as the original text in any browser. This can prevent garbled characters when content passes through older email systems, certain databases, or templating setups with uncertain encoding. When you do not need that, you can leave the option off and encode only the characters that actually have special meaning in HTML, keeping the output compact and readable. Having the choice means the tool fits both the everyday case of escaping markup characters and the stricter case of forcing everything into a safe ASCII-only form.",
+      },
+      {
+        heading: "Private by design — runs in your browser",
+        body: "The text you are escaping or unescaping might be source code, user-generated content, scraped data, email templates or anything else you would rather not hand to an outside service. In1 performs all entity encoding and decoding locally in your browser. The encoding uses simple, transparent rules and the decoding leans on the browser's built-in HTML parser, so nothing is ever uploaded, stored or logged. There is no account and no sign-up. The conversion happens instantly as you type or switch modes, with no network request, which means it works the same offline as online and never stalls on a slow connection. You can paste a large block of HTML and read its decoded form immediately, or escape a snippet and copy the safe version with a single click. This local-only approach matters because escaping is so often tied to security and to handling untrusted input — doing it on your own machine keeps both the input and the result entirely under your control.",
+      },
+      {
+        heading: "Who uses an HTML entity tool?",
+        body: "It is a daily utility for people who work with web content and markup. Front-end and back-end developers escape text before injecting it into pages to display code samples safely and to guard against cross-site scripting, and decode entities when reading data that arrived HTML-encoded. Technical writers and bloggers encode code snippets so the angle brackets show up as text instead of vanishing as tags. Email developers escape content to keep templates valid and force non-ASCII into a portable form. Data engineers decode entities out of scraped or exported HTML to recover clean text. QA testers and security researchers encode and decode payloads while probing how an application handles special characters. Even support staff occasionally need to decode an entity-laden string a user pasted. Because the tool handles encoding, decoding, the core HTML characters and the optional full non-ASCII pass — all instantly and privately — it covers the whole range of everyday HTML-escaping needs in one place.",
+      },
+    ],
+    howTo: [
+      { name: "Choose encode or decode", text: "Pick whether to turn characters into entities or turn entities back into characters." },
+      { name: "Paste your text", text: "Enter the text to escape, or the entity-laden text to decode." },
+      { name: "Set the non-ASCII option", text: "When encoding, optionally also convert every non-ASCII character to a numeric entity." },
+      { name: "Copy the result", text: "The converted output appears instantly — copy it with one click." },
+    ],
+    faq: [
+      { q: "Which characters get encoded?", a: "By default the HTML-special characters: <, >, &, double quote and single quote. You can optionally encode all non-ASCII characters too." },
+      { q: "Does it decode named and numeric entities?", a: "Yes. Decoding uses the browser's HTML parser, so both named entities like &amp; and numeric ones like &#39; are handled." },
+      { q: "Does this help prevent XSS?", a: "Escaping text before putting it into HTML is a core defense against cross-site scripting, and this tool produces that escaped form." },
+      { q: "Is my text uploaded anywhere?", a: "No. Encoding and decoding run locally in your browser, so your text never leaves your device." },
+      { q: "What is the non-ASCII option for?", a: "It converts every character outside basic ASCII into a numeric entity, for maximum compatibility with systems that might mishandle them." },
+      { q: "Is it free?", a: "Yes. The HTML entity encoder and decoder is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "jwt-decoder",
+    category: "web",
+    name: "JWT Decoder",
+    shortDescription: "Decode a JWT to read its header and payload claims.",
+    icon: "key-square",
+    processing: "client",
+    keywords: ["jwt decoder", "decode jwt", "json web token decoder", "jwt parser", "read jwt"],
+    metaTitle: "JWT Decoder — Decode JSON Web Tokens Online Free | In1",
+    metaDescription:
+      "Decode a JSON Web Token online for free and read its header and payload. Pretty-printed claims with issued, expiry and not-before times. Private — decoded in your browser.",
+    h1: "JWT decoder",
+    intro:
+      "Paste a JSON Web Token and instantly read its header and payload as formatted JSON, with the issued, not-before and expiry times shown in human-readable form. Everything is decoded locally — nothing is uploaded.",
+    sections: [
+      {
+        heading: "See what is inside a JSON Web Token",
+        body: "A JSON Web Token, or JWT, is a compact string used to carry claims between systems — most commonly to prove who a user is after they log in. It looks like one long run of characters separated by two dots, and at a glance it tells you nothing. But it is not encrypted: the header and payload are simply Base64URL-encoded JSON, which means anyone holding the token can read what is inside. This decoder does that for you, splitting the token into its parts and turning the encoded segments back into readable, pretty-printed JSON. You can immediately see the algorithm and token type in the header, and the claims in the payload: who the token is about, who issued it, what permissions or roles it carries, and when it is valid. Being able to inspect a token quickly is essential when you are building or debugging authentication, and this tool gives you that view without writing any code or pasting the token into a command line.",
+      },
+      {
+        heading: "Readable expiry, issued and not-before times",
+        body: "Some of the most important claims in a JWT are timestamps, and they are stored as raw Unix epoch numbers that are awkward to read. The 'exp' claim says when the token expires, 'iat' says when it was issued, and 'nbf' says the earliest time it is valid. Squinting at a ten-digit number to work out whether a token is still good is exactly the kind of friction that slows down debugging. In1 reads these claims and shows them as ordinary human-readable dates and times, and it flags an expired token directly, so you can tell at a glance whether the token you are looking at is current or stale. This is invaluable when you are chasing down an authentication problem: very often the answer is simply that the token has expired, and seeing that spelled out in plain language — rather than buried in an epoch integer — turns a confusing failure into an obvious one you can fix in seconds.",
+      },
+      {
+        heading: "Decoding is not the same as verifying",
+        body: "It is important to be clear about what a decoder does and does not do, because misunderstanding it can be dangerous. This tool decodes the token: it reads the header and payload so you can inspect them. It does not verify the signature, which is the cryptographic check that proves the token was issued by who it claims and has not been tampered with. Verification requires the secret or public key that signed the token, and it must always be done on the server, never trusted to the client. So this decoder is the right tool for reading and debugging — seeing the claims, checking the expiry, understanding what a token contains — but it is not, and cannot be, a security check. Anyone can craft a string that decodes to whatever claims they like; only signature verification with the proper key tells you whether to trust it. Keeping that distinction clear is part of using JWTs safely, and the tool states it plainly so no one mistakes a successful decode for a valid token.",
+      },
+      {
+        heading: "Private by design — decoded in your browser",
+        body: "JWTs are sensitive by their very nature. A token is often a bearer credential: whoever holds it can act as the user it represents until it expires. Pasting a live token into a website that sends it off to a server would mean handing your credential to a third party, which is precisely what you must never do. In1 decodes the token entirely in your browser using plain JavaScript. The token is never uploaded, never transmitted and never stored — it is split and Base64URL-decoded right on your own device, and it is gone when you close the tab. There is no account and no logging. This local-only design is not a nice-to-have for a JWT tool; it is the only responsible way to build one, because the whole point of inspecting a token is undermined if inspecting it leaks the token. You get the convenience of an instant decoder with the assurance that your credential stays exactly where it should: with you.",
+      },
+      {
+        heading: "Who uses a JWT decoder?",
+        body: "It is an everyday tool for anyone working with modern authentication. Back-end and front-end developers decode tokens constantly while building and debugging login flows, checking that the claims, roles and expiry they expect are actually present. API developers and integrators inspect the tokens a service issues to understand what data and permissions they carry. QA testers verify that authentication behaves correctly by reading the tokens an app produces under different scenarios. Security engineers examine token contents while assessing how an application handles authorization. Support and operations staff decode a token from a bug report to see whether it has simply expired. Even people learning how JWTs work paste one in to demystify the format and see that the payload really is just readable JSON. For all of them, a decoder that shows the header and payload clearly, translates the timestamps, is honest about not verifying signatures, and keeps the token on the device is exactly the right tool for the job.",
+      },
+    ],
+    howTo: [
+      { name: "Paste your JWT", text: "Drop the full token, including both dots, into the input box." },
+      { name: "Read the header", text: "See the algorithm and token type as formatted JSON." },
+      { name: "Read the payload", text: "Inspect the claims, with issued, not-before and expiry times shown in readable form." },
+      { name: "Copy what you need", text: "Copy the decoded header or payload with one click." },
+    ],
+    faq: [
+      { q: "Does the decoder verify the signature?", a: "No. It decodes the header and payload so you can read them, but it does not verify the signature — that must be done on a server with the signing key." },
+      { q: "Is my token sent to a server?", a: "No. The token is decoded entirely in your browser and is never uploaded, transmitted or stored." },
+      { q: "Can I see when the token expires?", a: "Yes. The expiry, issued-at and not-before claims are shown as readable dates, and an expired token is flagged." },
+      { q: "Why can I read the payload — isn't it secret?", a: "A JWT is encoded, not encrypted. Anyone with the token can read the header and payload, which is why you must never put secrets in them." },
+      { q: "What if my token is invalid?", a: "If the string isn't a well-formed token, the decoder shows an error instead of partial or garbled output." },
+      { q: "Is it free?", a: "Yes. The JWT decoder is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "regex-tester",
+    category: "web",
+    name: "Regex Tester",
+    shortDescription: "Test a regular expression against text and see live matches.",
+    icon: "regex",
+    processing: "client",
+    keywords: ["regex tester", "regex online", "test regular expression", "regex match", "regexp tester"],
+    metaTitle: "Regex Tester — Test Regular Expressions Online Free | In1",
+    metaDescription:
+      "Test regular expressions online for free. Highlight matches live, toggle flags, and inspect capture groups against your own text. Private — runs entirely in your browser.",
+    h1: "Regex tester",
+    intro:
+      "Write a regular expression and see it match your text in real time. Matches are highlighted, capture groups are listed, and you can toggle flags — all instantly and privately in your browser.",
+    sections: [
+      {
+        heading: "See your pattern match in real time",
+        body: "Regular expressions are powerful but notoriously easy to get wrong, and the only reliable way to know whether one works is to run it against real text and look at what it catches. This tester gives you that feedback instantly. You type a pattern in one box and your sample text in another, and every match is highlighted directly in the text as you go, with a running count of how many were found. There is no run button to press and no waiting — the highlighting updates with each keystroke, so you can refine a pattern and watch the effect immediately. This tight loop is what makes building a regex manageable: instead of writing the whole thing and hoping, you grow it piece by piece, confirming at each step that it still matches what it should and nothing it shouldn't. Seeing the matches in context, rather than as an abstract list, also makes it obvious when a pattern is catching too much or missing an edge case.",
+      },
+      {
+        heading: "Toggle flags to change how matching works",
+        body: "Flags change the behavior of a regular expression in important ways, and the tester lets you switch them on and off with a click so you can see their effect immediately. The global flag finds every match rather than stopping at the first. The case-insensitive flag makes letters match regardless of capitalization. The multiline flag changes how the start-of-line and end-of-line anchors behave across multiple lines. The dotall flag lets the dot match newline characters, which matters when your text spans several lines. The unicode flag enables proper handling of characters beyond the basic range. Understanding which flag does what is half of mastering regular expressions, and being able to flip each one and instantly watch the matches change is the fastest way to build that intuition. It also saves real debugging time, because a pattern that 'isn't working' is very often just missing a flag, and the tester makes that easy to spot and fix.",
+      },
+      {
+        heading: "Inspect capture groups, not just matches",
+        body: "Matching is only part of what regular expressions do; capture groups let you pull specific pieces out of each match, and getting them right is essential when you are extracting or rearranging data. The tester shows the capture groups for each match, so you can confirm that your parentheses are grabbing exactly the parts you intend. This is invaluable when you are using a regex to extract fields from log lines, parse a structured string, or reformat text with group references in a replacement. Instead of guessing whether group one is the area code and group two is the number, you can see the captured values laid out for every match and verify your pattern before you rely on it elsewhere. Seeing the groups also helps you debug a pattern that matches the right overall text but captures the wrong pieces inside it — a subtle bug that is almost impossible to catch by looking at the matches alone, but obvious once the groups are spelled out.",
+      },
+      {
+        heading: "Private by design — tested in your browser",
+        body: "The text you test a pattern against is often real, sometimes sensitive: log files, user data, source code, exported records or anything else you happen to be parsing. There is no reason to send it to a server just to run a regex, and good reason not to. In1 evaluates your pattern entirely in your browser using the JavaScript regular expression engine, so both the pattern and the test text stay on your own device. Nothing is uploaded, nothing is stored and there is no account. Matching is instant because there is no network round trip, and it works exactly the same offline as online. If your pattern is invalid, the tester tells you what is wrong instead of failing silently, so you can fix it and carry on. You can paste a large block of text and test against all of it without worrying about where it goes. It is the convenience of an online regex tester with the privacy of running the pattern locally — which is what real, sensitive test data calls for.",
+      },
+      {
+        heading: "Who uses a regex tester?",
+        body: "Regular expressions show up far beyond programming, and so do the people who need to test them. Developers build and debug patterns for validation, search, parsing and text transformation in every language, and a tester is the quickest way to confirm a pattern before dropping it into code. Data analysts and engineers craft expressions to clean, extract and reshape messy data. QA testers write patterns to validate input formats and check output. SEO and marketing specialists build regex for analytics filters, redirect rules and search-and-replace operations. System administrators use them in log analysis and configuration. Writers and editors occasionally reach for regex to perform sophisticated find-and-replace. Students learning the syntax use a live tester to understand how each construct behaves. For all of them, being able to type a pattern, see it match real text instantly, flip flags, and inspect capture groups — privately, with no setup — turns the often-frustrating process of getting a regex right into something fast and almost interactive.",
+      },
+    ],
+    howTo: [
+      { name: "Write your pattern", text: "Type a regular expression in the pattern field." },
+      { name: "Choose flags", text: "Toggle global, ignore-case, multiline, dotall and unicode flags as needed." },
+      { name: "Add test text", text: "Paste the text you want to match against in the test box." },
+      { name: "Read the results", text: "Matches are highlighted live, with a count and any capture groups listed." },
+    ],
+    faq: [
+      { q: "Which regex syntax does it use?", a: "It uses the JavaScript regular expression engine, so the syntax matches what you'd use in JavaScript and many similar languages." },
+      { q: "Can I see capture groups?", a: "Yes. For each match the tester lists the captured groups, so you can confirm your parentheses grab the right parts." },
+      { q: "What flags are supported?", a: "Global, case-insensitive, multiline, dotall and unicode flags can each be toggled on or off." },
+      { q: "Is my test text uploaded anywhere?", a: "No. The pattern runs locally in your browser, so both the regex and your text stay on your device." },
+      { q: "What happens with an invalid pattern?", a: "The tester shows an error explaining the problem instead of failing silently or matching nothing." },
+      { q: "Is it free?", a: "Yes. The regex tester is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "number-base-converter",
+    category: "web",
+    name: "Number Base Converter",
+    shortDescription: "Convert numbers between binary, octal, decimal and hex.",
+    icon: "binary",
+    processing: "client",
+    keywords: ["number base converter", "binary to decimal", "decimal to hex", "hex converter", "binary converter"],
+    metaTitle: "Number Base Converter — Binary, Hex, Decimal Online Free | In1",
+    metaDescription:
+      "Convert numbers between binary, octal, decimal and hexadecimal online for free. Enter a value in any base and see all four at once. Instant, private, in your browser.",
+    h1: "Number base converter",
+    intro:
+      "Enter a number in binary, octal, decimal or hexadecimal and instantly see it in all four bases at once. Each result is validated and ready to copy, with everything computed in your browser.",
+    sections: [
+      {
+        heading: "Convert between all four common bases at once",
+        body: "Numbers can be written in different bases, and converting between them by hand is fiddly and error-prone. Decimal, base ten, is what people use every day. Binary, base two, is the language of computers, built from only ones and zeros. Hexadecimal, base sixteen, is a compact way to write binary that programmers use constantly for colors, memory addresses, byte values and more. Octal, base eight, still shows up in places like file permissions. This converter takes a number in any one of these bases and shows you the equivalent in all four simultaneously, so you never have to do the conversion in your head or chain together several steps. Enter a hex color component and read its decimal value; type a decimal number and see its binary form; paste a binary string and get the hex. Because all four results appear together and update as you type, you get the full picture of a value at once, which is far quicker than converting one pair at a time.",
+      },
+      {
+        heading: "Pick your input base and type away",
+        body: "To convert a number correctly, the tool needs to know what base you are starting from, because the same digits can mean different things in different bases — '10' is ten in decimal but two in binary, eight in octal and sixteen in hex. In1 lets you choose the input base with a single tap, and then interprets whatever you type accordingly. As soon as you enter a value, the conversions to the other three bases appear instantly. This makes the tool comfortable for quick one-off lookups and for working through a series of values: set the base once and keep typing. The decimal result is always shown so you can anchor an unfamiliar binary or hex value to a number you intuitively understand, and the hexadecimal output is shown in a clean, consistent form. There is no submit button and no mode-switching beyond choosing the base — you select where you are starting from and the answers follow immediately.",
+      },
+      {
+        heading: "Validation that catches bad input",
+        body: "One of the easiest mistakes when working with bases is entering a digit that does not belong: a '2' in a binary number, an '8' in an octal one, or a stray letter in a decimal value. A naive converter might silently produce a wrong answer, which is worse than no answer because you might trust it. In1 validates your input against the base you have selected and tells you clearly when the value is not legal for that base, rather than guessing or returning garbage. It also guards against numbers too large to convert reliably, so you are warned instead of getting a silently truncated or inaccurate result. This validation turns the converter into something you can actually rely on: when it shows you a set of results, you know the input was well-formed and the conversions are correct. Catching the error at the moment you type it, with a plain message explaining the problem, saves you from chasing a bug that started as a single mistyped digit.",
+      },
+      {
+        heading: "Private, instant and free",
+        body: "Base conversion is pure arithmetic, and there is no reason it should involve a server. In1 computes every conversion locally in your browser using the platform's own number handling, so whatever values you are working with stay entirely on your device. Nothing is uploaded, nothing is stored and there is no account or sign-up. The results appear the instant you type, with no network request, so the converter is immediate and works exactly the same offline as online — handy when you are deep in a project without a reliable connection. Each result sits next to a copy button, so moving a converted value into your code, a config file, a calculator or a document takes a single click. There are no limits and no clutter. It is a small, focused utility, but base conversion is something developers and students reach for surprisingly often, and having it give you all four bases at once, validated and instant, is exactly what that recurring need calls for.",
+      },
+      {
+        heading: "Who uses a number base converter?",
+        body: "It is a constant companion for anyone close to how computers represent numbers. Programmers convert between decimal and hexadecimal for color codes, memory addresses, bitmasks, byte values and status codes, and read binary to reason about individual bits. Embedded and low-level developers live in hex and binary and convert to decimal to sanity-check values. Students learning computer science practice converting between bases as a core skill and use the tool to check their work. Network engineers convert values while working with addresses and subnet masks. System administrators decode octal file permissions. Electronics and hardware hobbyists translate register values between bases. Anyone working with hashes, encodings or low-level data formats occasionally needs to flip a number from one base to another. For all of them, a converter that takes any base as input and shows all four outputs at once — validated, instant and private — replaces both mental arithmetic and the risk of a quietly wrong conversion with a quick, trustworthy lookup.",
+      },
+    ],
+    howTo: [
+      { name: "Choose the input base", text: "Tap binary, octal, decimal or hexadecimal to set what you're starting from." },
+      { name: "Enter your number", text: "Type the value in the selected base." },
+      { name: "Read all four bases", text: "The equivalent in binary, octal, decimal and hex appears instantly." },
+      { name: "Copy a result", text: "Copy any of the converted values with one click." },
+    ],
+    faq: [
+      { q: "Which bases does it support?", a: "Binary (base 2), octal (base 8), decimal (base 10) and hexadecimal (base 16)." },
+      { q: "Do I have to convert one pair at a time?", a: "No. You enter a number in one base and see the equivalent in all four bases at once." },
+      { q: "What happens if I enter an invalid digit?", a: "The tool validates against the chosen base and shows a clear message instead of producing a wrong answer." },
+      { q: "Is there a limit on the number size?", a: "Very large numbers that can't be converted reliably are flagged, so you never get a silently inaccurate result." },
+      { q: "Is anything uploaded?", a: "No. All conversion happens locally in your browser, so your values never leave your device." },
+      { q: "Is it free?", a: "Yes. The number base converter is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "json-to-csv",
+    category: "web",
+    name: "JSON to CSV",
+    shortDescription: "Convert a JSON array of objects into downloadable CSV.",
+    icon: "file-spreadsheet",
+    processing: "client",
+    keywords: ["json to csv", "convert json to csv", "json to csv converter", "json array to csv", "export json csv"],
+    metaTitle: "JSON to CSV — Convert JSON to CSV Online Free | In1",
+    metaDescription:
+      "Convert a JSON array of objects to CSV online for free. Handles varied keys, quotes and commas safely, with copy and download. Private — runs entirely in your browser.",
+    h1: "JSON to CSV converter",
+    intro:
+      "Paste a JSON array of objects and get clean CSV you can open in any spreadsheet. Keys become columns, values are escaped correctly, and you can copy the result or download it as a file — all in your browser.",
+    sections: [
+      {
+        heading: "Turn JSON data into a spreadsheet",
+        body: "JSON is how data travels between programs — APIs return it, configuration files use it, and exports produce it — but it is not how most people want to read or analyze that data. For browsing, filtering, sorting and sharing, a spreadsheet is far more natural, and spreadsheets speak CSV. This converter bridges the two. You paste a JSON array of objects and it produces CSV where each object becomes a row and each key becomes a column, ready to open in Excel, Google Sheets, Numbers or any tool that imports CSV. Instead of writing a script, wrangling a one-off parser, or manually retyping values into cells, you get a clean, correctly structured table in a single step. This is exactly what you need when an API hands you JSON but your colleague wants a spreadsheet, when you want to eyeball an export, or when the next tool in your workflow only accepts tabular data. The conversion preserves your data while changing its shape into something immediately usable.",
+      },
+      {
+        heading: "Handles messy, real-world JSON",
+        body: "Real data is rarely uniform, and a converter is only useful if it copes with that. In1 scans every object in your array and builds the column list from the union of all their keys, so if some records have fields that others lack, every field still gets a column and missing values are simply left blank rather than throwing the rows out of alignment. Values that are themselves objects or arrays are serialized so they still fit in a cell instead of breaking the output. This tolerance for irregular data means you can throw a real API response or database export at it without first cleaning everything into a perfectly rectangular shape. The result is a CSV whose header row reflects all the fields present across your data and whose rows line up correctly underneath, which is precisely what a spreadsheet needs to import the file cleanly. You spend your effort analyzing the data, not massaging it into a form the converter can handle.",
+      },
+      {
+        heading: "Correct escaping so nothing breaks",
+        body: "CSV looks simple but has sharp edges, and getting the escaping wrong silently corrupts the data. A value that contains a comma would split into two cells; a value with a line break would spill into a new row; a value with a quotation mark would confuse the parser. The CSV standard handles all of this by wrapping problematic values in quotes and doubling any quotes inside them, and In1 applies those rules correctly so your output imports cleanly no matter what the values contain. Names with commas, descriptions with line breaks, text with embedded quotes — all of it survives the round trip intact. This careful escaping is the difference between a CSV that opens perfectly in a spreadsheet and one that looks fine at a glance but has rows misaligned by a stray comma three hundred entries down. Because the tool gets the escaping right every time, you can trust that the table you download matches the data you put in.",
+      },
+      {
+        heading: "Copy or download, privately",
+        body: "Once your CSV is ready, you can use it whichever way suits you: copy it to the clipboard to paste straight into a sheet or another tool, or download it as a proper .csv file ready to open or share. Both options are a single click. And crucially, the entire conversion happens locally in your browser. The JSON you paste — which might be an API response with personal data, an internal export, or records you are not free to share — is never uploaded to a server. Nothing is stored and there is no account. The conversion is instant because there is no network round trip, and it works the same offline as online. This local-only design matters for data work, where pasting a customer export or a confidential dataset into an unknown online converter would be a real risk. With In1 you get the convenience of an instant JSON-to-CSV tool with the assurance that your data stays on your own machine from start to finish.",
+      },
+      {
+        heading: "Who converts JSON to CSV?",
+        body: "The need spans technical and non-technical work alike. Developers convert API responses and database exports into CSV to inspect them, share them with teammates, or feed them into tools that expect tabular input. Data analysts turn JSON datasets into spreadsheets where they can sort, filter, pivot and chart. Marketers and operations staff take JSON exports from various platforms and convert them so they can work in the spreadsheet they are comfortable with. QA testers turn structured test output into CSV for review. Researchers convert collected JSON data into a form their analysis tools accept. Anyone who has received data as JSON but needs it as a table — which happens constantly once you start moving data between systems — benefits from a converter that handles irregular keys, escapes values correctly, and offers both copy and download, all without uploading the data. It removes the small but recurring barrier between the format data arrives in and the format people actually want to use it in.",
+      },
+    ],
+    howTo: [
+      { name: "Paste your JSON", text: "Drop in a JSON array of objects, like an API response or export." },
+      { name: "Let it convert", text: "Keys become columns and each object becomes a row, instantly." },
+      { name: "Check the CSV", text: "Review the generated CSV, with values escaped correctly." },
+      { name: "Copy or download", text: "Copy the CSV to your clipboard or download it as a .csv file." },
+    ],
+    faq: [
+      { q: "What JSON shape does it expect?", a: "An array of objects, like [{\"name\":\"Ada\"},{\"name\":\"Linus\"}]. A single object works too and becomes one row." },
+      { q: "What if my objects have different keys?", a: "The converter builds columns from the union of all keys, leaving cells blank where a record lacks a field." },
+      { q: "Does it escape commas and quotes correctly?", a: "Yes. Values containing commas, quotes or line breaks are quoted and escaped per the CSV standard so nothing breaks." },
+      { q: "Can I download the result?", a: "Yes. You can copy the CSV or download it as a .csv file ready to open in any spreadsheet." },
+      { q: "Is my data uploaded anywhere?", a: "No. The conversion runs locally in your browser, so your JSON never leaves your device." },
+      { q: "Is it free?", a: "Yes. The JSON to CSV converter is completely free, with no account and no limits." },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  {
+    slug: "csv-to-json",
+    category: "web",
+    name: "CSV to JSON",
+    shortDescription: "Convert CSV into a clean JSON array of objects.",
+    icon: "file-json",
+    processing: "client",
+    keywords: ["csv to json", "convert csv to json", "csv to json converter", "csv parser", "csv to array"],
+    metaTitle: "CSV to JSON — Convert CSV to JSON Online Free | In1",
+    metaDescription:
+      "Convert CSV to a JSON array of objects online for free. Uses the header row for keys, handles quoted fields and commas safely, with copy and download. Private, in your browser.",
+    h1: "CSV to JSON converter",
+    intro:
+      "Paste CSV and get a clean JSON array of objects, using the header row as keys. Quoted fields, embedded commas and line breaks are parsed correctly, and you can copy or download the result — all in your browser.",
+    sections: [
+      {
+        heading: "From spreadsheet rows to structured JSON",
+        body: "CSV is how tabular data leaves a spreadsheet, but it is not a convenient format for programs to work with directly. Code wants structured objects with named fields, not rows of comma-separated text that have to be split and indexed by position. This converter does that transformation for you. You paste CSV and it produces a JSON array where each row becomes an object, with the values keyed by the column names from the header row. The result is exactly the shape most code, APIs and configuration expect, ready to drop into a project, send to an endpoint, or load into a tool that consumes JSON. Instead of writing a throwaway parser every time someone hands you a CSV, or wrestling with splitting strings and lining up columns, you get clean, correctly keyed JSON in a single step. It is the natural counterpart to exporting data as CSV: the bridge that takes spreadsheet-friendly data back into a developer-friendly form.",
+      },
+      {
+        heading: "A real CSV parser, not a naive split",
+        body: "Converting CSV correctly is harder than it looks, because CSV allows values that contain the very characters used to separate them. A field wrapped in quotes can include commas, line breaks and even quotation marks of its own, as long as those inner quotes are doubled. A naive converter that simply splits on commas falls apart the moment a value contains one, silently producing extra columns and misaligned data. In1 uses a proper parser that understands quoted fields, so a description with a comma, an address spanning multiple lines, or text with embedded quotes is read as a single value exactly as intended. This is what separates a converter you can trust on real exports from one that only works on the simplest, cleanest input. Because the parser follows the conventions real spreadsheets use when they write CSV, the JSON it produces faithfully reflects the original table, with every value landing in the right field no matter what characters it contains.",
+      },
+      {
+        heading: "Headers become keys automatically",
+        body: "The first row of a CSV almost always holds the column names, and those names are what make the data meaningful. In1 uses that header row to key every object it produces, so instead of anonymous arrays indexed by number you get objects whose fields are named the way the spreadsheet labeled them. A row under headers of name, email and role becomes an object with name, email and role properties, which is immediately readable and ready to use in code without any further mapping. This automatic keying is what turns a flat table into genuinely structured data: you can reference fields by their names, the JSON is self-documenting, and anyone reading it understands what each value represents. It also means the converter adapts to whatever columns your CSV has, however many there are and whatever they are called, without any configuration. You provide a CSV with a header row, and you get back JSON objects that mirror its structure exactly.",
+      },
+      {
+        heading: "Copy or download, privately",
+        body: "When the JSON is ready you can use it however you like: copy it to the clipboard to paste into your code or another tool, or download it as a .json file to save or share. Both take a single click, and the JSON is pretty-printed so it is easy to read and review before you use it. Just as importantly, the whole conversion runs locally in your browser. The CSV you paste — which might be a customer export, internal records, survey responses or any other data you are not free to send to a third party — is never uploaded. Nothing is stored and there is no account. The conversion is instant because there is no server involved, and it works the same offline as online. This local-only approach is essential for data work, where dropping a sensitive spreadsheet export into an unknown online converter would be a genuine risk. In1 gives you the convenience of an instant CSV-to-JSON tool while keeping your data firmly on your own device.",
+      },
+      {
+        heading: "Who converts CSV to JSON?",
+        body: "The need turns up wherever spreadsheet data meets code. Developers convert CSV exports into JSON to seed databases, drive tests, configure applications or send to APIs that expect structured input. Data engineers transform tabular files into JSON as a step in a pipeline. Analysts move data out of spreadsheets and into tools and scripts that work with JSON. Front-end developers turn a CSV of content into JSON to render in an app. QA testers convert test data maintained in a spreadsheet into the JSON their fixtures need. Researchers and students translate collected CSV data into JSON for processing. Even non-developers sometimes need to hand structured JSON to a developer or a system, starting from a spreadsheet they already have. For all of them, a converter that parses real CSV correctly, keys objects by the header row, and offers both copy and download without uploading the data removes the recurring friction of getting tabular data into the structured form that software actually wants.",
+      },
+    ],
+    howTo: [
+      { name: "Paste your CSV", text: "Drop in CSV text with the column names in the first row." },
+      { name: "Let it parse", text: "Each row becomes an object keyed by the header columns, instantly." },
+      { name: "Review the JSON", text: "Check the pretty-printed JSON array, with quoted fields parsed correctly." },
+      { name: "Copy or download", text: "Copy the JSON or download it as a .json file." },
+    ],
+    faq: [
+      { q: "Does the first row become the keys?", a: "Yes. The header row is used to name the fields of every object in the resulting JSON array." },
+      { q: "Does it handle quoted fields with commas?", a: "Yes. A proper parser handles quoted values containing commas, line breaks and escaped quotes correctly." },
+      { q: "What format is the output?", a: "A pretty-printed JSON array of objects, ready to copy or download as a .json file." },
+      { q: "Is my CSV uploaded anywhere?", a: "No. Parsing runs locally in your browser, so your data never leaves your device." },
+      { q: "Can I download the JSON?", a: "Yes. You can copy the JSON to your clipboard or download it as a file." },
+      { q: "Is it free?", a: "Yes. The CSV to JSON converter is completely free, with no account and no limits." },
+    ],
+  },
 ];
 
 // --- Helpers -----------------------------------------------------------------
