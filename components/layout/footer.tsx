@@ -12,12 +12,13 @@ export function Footer() {
     <footer className="bg-[#1d1d1f] text-white">
       <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="flex flex-col gap-12 lg:flex-row lg:justify-between">
-          {/* Brand */}
+          {/* Brand — echoes the hero headline (In1 = "all in one") */}
           <div className="lg:max-w-xs">
-            <Link href="/" aria-label={siteConfig.name}>
-              <Logo />
+            <Link href="/" aria-label={siteConfig.name} className="block max-w-[18rem]">
+              <span className="block text-2xl font-semibold leading-[1.15] tracking-tight text-balance">
+                Every tool you need, <Logo className="text-2xl" /> place
+              </span>
             </Link>
-            <p className="mt-4 max-w-[16rem] text-sm text-white/50">{siteConfig.tagline}</p>
           </div>
 
           {/* Tool columns by category (registry-driven) */}
