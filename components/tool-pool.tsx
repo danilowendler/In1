@@ -1,6 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Link from "next/link";
 import { Search, Crosshair, X } from "lucide-react";
 import { Icon } from "@/components/icons";
@@ -12,6 +19,16 @@ interface ToolPoolProps {
 }
 
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
+const MIN_SCALE = 0.35;
+const MAX_SCALE = 1.6;
+const PAN_TRANSITION = "transform 650ms cubic-bezier(0.22,0.61,0.36,1)";
+
+// useLayoutEffect on the client, useEffect on the server (avoids the SSR warning
+// while still syncing the DOM before paint in the browser).
+const useIsoLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+const clampScale = (s: number) => Math.min(MAX_SCALE, Math.max(MIN_SCALE, s));
 
 /** Phyllotaxis (sunflower) layout: an organically packed cluster around (0,0). */
 function spiralPos(i: number, spacing: number) {
@@ -40,35 +57,79 @@ function distance(a: { x: number; y: number }, b: { x: number; y: number }) {
 
 export function ToolPool({ tools }: ToolPoolProps) {
   const [query, setQuery] = useState("");
+  // Committed view — the source of truth for the recenter button + animated
+  // (search / recenter) moves. During a gesture the view is driven imperatively
+  // (see applyView) and only committed back to state when the gesture ends, so
+  // panning/zooming never re-renders the 77 cards per frame.
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [scale, setScale] = useState(1);
-  const [dragging, setDragging] = useState(false);
 
-  // Gesture bookkeeping (refs so move handlers never read stale state).
+  // DOM nodes we transform imperatively.
   const canvasRef = useRef<HTMLElement>(null);
+  const panLayerRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
+
+  // Live view values (lead the React state during a gesture).
+  const panRef = useRef(pan);
+  const scaleRef = useRef(scale);
+
+  // Gesture bookkeeping.
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const dragStart = useRef({ px: 0, py: 0, panX: 0, panY: 0 });
   const pinchStart = useRef<{ dist: number; scale: number } | null>(null);
   const moved = useRef(false);
-  // Mirror pan/scale into refs so gesture handlers always read fresh values.
-  const panRef = useRef(pan);
-  const scaleRef = useRef(scale);
+  const gesturing = useRef(false);
+  const rafId = useRef<number | null>(null);
+  const wheelCommit = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const applyPan = useCallback((p: { x: number; y: number }) => {
-    panRef.current = p;
-    setPan(p);
+  // Write the current pan/scale straight to the DOM (no React render).
+  const applyView = useCallback((animate: boolean) => {
+    const x = panRef.current.x;
+    const y = panRef.current.y;
+    const s = scaleRef.current;
+    const layer = panLayerRef.current;
+    if (layer) {
+      layer.style.transition = animate ? PAN_TRANSITION : "none";
+      layer.style.transform = `translate(${x}px, ${y}px) scale(${s})`;
+    }
+    const bg = backdropRef.current;
+    if (bg) {
+      bg.style.backgroundSize = `${26 * s}px ${26 * s}px`;
+      bg.style.backgroundPosition = `${x}px ${y}px`;
+    }
   }, []);
-  const applyScale = useCallback((s: number) => {
-    const clamped = Math.min(1.6, Math.max(0.35, s));
-    scaleRef.current = clamped;
-    setScale(clamped);
+
+  // Coalesce gesture updates to at most one DOM write per frame.
+  const scheduleApply = useCallback(() => {
+    if (rafId.current != null) return;
+    rafId.current = requestAnimationFrame(() => {
+      rafId.current = null;
+      applyView(false);
+    });
+  }, [applyView]);
+
+  // Push the live view back into React state (recenter button + base for the
+  // next animated move). Called when a gesture finishes.
+  const commitView = useCallback(() => {
+    setPan({ x: panRef.current.x, y: panRef.current.y });
+    setScale(scaleRef.current);
   }, []);
+
+  const setGrabbing = useCallback((on: boolean) => {
+    const el = canvasRef.current;
+    if (el) el.style.cursor = on ? "grabbing" : "";
+  }, []);
+
+  // Sync the DOM from committed state for discrete, animated moves (mount,
+  // search re-center, recenter button). Gestures bypass this entirely.
+  useIsoLayoutEffect(() => {
+    panRef.current = pan;
+    scaleRef.current = scale;
+    applyView(true);
+  }, [pan, scale, applyView]);
 
   // Stable "all tools" positions, keyed by the tool's original index.
-  const fullPos = useMemo(
-    () => tools.map((_, i) => spiralPos(i, 150)),
-    [tools],
-  );
+  const fullPos = useMemo(() => tools.map((_, i) => spiralPos(i, 150)), [tools]);
 
   const q = query.trim().toLowerCase();
   const searching = q.length > 0;
@@ -86,40 +147,56 @@ export function ToolPool({ tools }: ToolPoolProps) {
   const matchCount = searching ? matchIndex.size : tools.length;
 
   // Wheel = zoom (Maps-style). Native non-passive listener so we can stop the
-  // page from scrolling while the cursor is over the canvas.
+  // page from scrolling while the cursor is over the canvas. Applied imperatively
+  // and committed to state shortly after the wheel goes quiet.
   useEffect(() => {
     const el = canvasRef.current;
     if (!el) return;
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const factor = e.deltaY > 0 ? 0.9 : 1.1; // scroll out → zoom out
-      applyScale(scaleRef.current * factor);
+      scaleRef.current = clampScale(scaleRef.current * factor);
+      scheduleApply();
+      if (wheelCommit.current) clearTimeout(wheelCommit.current);
+      wheelCommit.current = setTimeout(commitView, 140);
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
-  }, [applyScale]);
+  }, [scheduleApply, commitView]);
 
-  const onPointerDown = useCallback((e: React.PointerEvent) => {
-    if (e.pointerType === "mouse" && e.button !== 0) return;
-    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    if (pointers.current.size === 2) {
-      // Second finger down → start a pinch (this is never a tap).
-      const [a, b] = [...pointers.current.values()];
-      pinchStart.current = { dist: distance(a, b), scale: scaleRef.current };
-      moved.current = true;
-      setDragging(false);
-    } else if (pointers.current.size === 1) {
-      // One pointer: potential tap or drag. Don't capture yet so a tap can
-      // still reach the tool card's <Link>.
-      moved.current = false;
-      dragStart.current = {
-        px: e.clientX,
-        py: e.clientY,
-        panX: panRef.current.x,
-        panY: panRef.current.y,
-      };
-    }
+  // Cleanup any pending frame/timer on unmount.
+  useEffect(() => {
+    return () => {
+      if (rafId.current != null) cancelAnimationFrame(rafId.current);
+      if (wheelCommit.current) clearTimeout(wheelCommit.current);
+    };
   }, []);
+
+  const onPointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.current.size === 2) {
+        // Second finger down → start a pinch (this is never a tap).
+        const [a, b] = [...pointers.current.values()];
+        pinchStart.current = { dist: distance(a, b), scale: scaleRef.current };
+        moved.current = true;
+        gesturing.current = true;
+        setGrabbing(true);
+      } else if (pointers.current.size === 1) {
+        // One pointer: potential tap or drag. Don't capture yet so a tap can
+        // still reach the tool card's <Link>.
+        moved.current = false;
+        dragStart.current = {
+          px: e.clientX,
+          py: e.clientY,
+          panX: panRef.current.x,
+          panY: panRef.current.y,
+        };
+      }
+    },
+    [setGrabbing],
+  );
 
   const onPointerMove = useCallback(
     (e: React.PointerEvent) => {
@@ -132,7 +209,8 @@ export function ToolPool({ tools }: ToolPoolProps) {
       if (pointers.current.size >= 2 && pinchStart.current) {
         const [a, b] = [...pointers.current.values()];
         const ratio = distance(a, b) / (pinchStart.current.dist || 1);
-        applyScale(pinchStart.current.scale * ratio);
+        scaleRef.current = clampScale(pinchStart.current.scale * ratio);
+        scheduleApply();
         return;
       }
 
@@ -142,31 +220,57 @@ export function ToolPool({ tools }: ToolPoolProps) {
       if (!moved.current && Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
       if (!moved.current) {
         moved.current = true;
-        setDragging(true);
+        gesturing.current = true;
+        setGrabbing(true);
         (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
       }
-      applyPan({ x: dragStart.current.panX + dx, y: dragStart.current.panY + dy });
+      panRef.current = {
+        x: dragStart.current.panX + dx,
+        y: dragStart.current.panY + dy,
+      };
+      scheduleApply();
     },
-    [applyPan, applyScale],
+    [scheduleApply, setGrabbing],
   );
 
-  const endDrag = useCallback((e: React.PointerEvent) => {
-    pointers.current.delete(e.pointerId);
-    const el = e.currentTarget as HTMLElement;
-    if (el.hasPointerCapture?.(e.pointerId)) el.releasePointerCapture(e.pointerId);
-    if (pointers.current.size < 2) pinchStart.current = null;
-    if (pointers.current.size === 1) {
-      // One finger remains after a pinch → rebase the pan origin so it doesn't jump.
-      const [only] = [...pointers.current.values()];
-      dragStart.current = { px: only.x, py: only.y, panX: panRef.current.x, panY: panRef.current.y };
-      moved.current = true;
-    }
-    if (pointers.current.size === 0) setDragging(false);
-  }, []);
+  const endDrag = useCallback(
+    (e: React.PointerEvent) => {
+      pointers.current.delete(e.pointerId);
+      const el = e.currentTarget as HTMLElement;
+      if (el.hasPointerCapture?.(e.pointerId)) el.releasePointerCapture(e.pointerId);
+      if (pointers.current.size < 2) pinchStart.current = null;
+      if (pointers.current.size === 1) {
+        // One finger remains after a pinch → rebase the pan origin so it doesn't jump.
+        const [only] = [...pointers.current.values()];
+        dragStart.current = {
+          px: only.x,
+          py: only.y,
+          panX: panRef.current.x,
+          panY: panRef.current.y,
+        };
+        moved.current = true;
+      }
+      if (pointers.current.size === 0 && gesturing.current) {
+        gesturing.current = false;
+        setGrabbing(false);
+        if (rafId.current != null) {
+          cancelAnimationFrame(rafId.current);
+          rafId.current = null;
+        }
+        commitView(); // sync React state with where the gesture left the view
+      }
+    },
+    [commitView, setGrabbing],
+  );
 
   const handleSearch = (value: string) => {
     setQuery(value);
-    applyPan({ x: 0, y: 0 }); // re-center so matches gather in view
+    setPan({ x: 0, y: 0 }); // re-center so matches gather in view (animated)
+  };
+
+  const recenter = () => {
+    setPan({ x: 0, y: 0 });
+    setScale(1);
   };
 
   return (
@@ -176,27 +280,25 @@ export function ToolPool({ tools }: ToolPoolProps) {
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
       onPointerCancel={endDrag}
-      className="relative h-[calc(100dvh-3rem)] w-full touch-none select-none overflow-hidden bg-secondary"
-      style={{ cursor: dragging ? "grabbing" : "grab" }}
+      className="relative h-[calc(100dvh-3rem)] w-full cursor-grab touch-none select-none overflow-hidden bg-secondary"
     >
-      {/* Dotted "map" backdrop that drifts with the pan. */}
+      {/* Dotted "map" backdrop that drifts with the pan (updated imperatively). */}
       <div
-        className="pointer-events-none absolute inset-0"
+        ref={backdropRef}
+        className="pointer-events-none absolute inset-0 will-change-[background-position]"
         style={{
           backgroundImage: "radial-gradient(circle, #d4d4d8 1px, transparent 1px)",
-          backgroundSize: `${26 * scale}px ${26 * scale}px`,
-          backgroundPosition: `${pan.x}px ${pan.y}px`,
+          backgroundSize: "26px 26px",
+          backgroundPosition: "0px 0px",
         }}
       />
 
-      {/* Pan layer — translated as a whole; nodes animate relative to it. */}
+      {/* Pan layer — translated/scaled as a whole (imperatively during gestures);
+          nodes animate relative to it. */}
       <div
-        className="absolute inset-0"
-        style={{
-          transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
-          transformOrigin: "center",
-          transition: dragging ? "none" : "transform 650ms cubic-bezier(0.22,0.61,0.36,1)",
-        }}
+        ref={panLayerRef}
+        className="absolute inset-0 will-change-transform"
+        style={{ transformOrigin: "center" }}
       >
         {tools.map((tool, i) => {
           const isMatch = !searching || matchIndex.has(tool.slug);
@@ -273,7 +375,7 @@ export function ToolPool({ tools }: ToolPoolProps) {
         <p className="pointer-events-none mt-2 text-xs text-muted-foreground">
           {searching
             ? `${matchCount} ${matchCount === 1 ? "tool" : "tools"} found`
-            : "Drag to explore · search to filter"}
+            : "Drag to explore · pinch or scroll to zoom"}
         </p>
       </div>
 
@@ -281,10 +383,7 @@ export function ToolPool({ tools }: ToolPoolProps) {
       {(pan.x !== 0 || pan.y !== 0 || scale !== 1) && (
         <button
           type="button"
-          onClick={() => {
-            applyPan({ x: 0, y: 0 });
-            applyScale(1);
-          }}
+          onClick={recenter}
           aria-label="Recenter"
           className="absolute bottom-6 right-6 z-20 flex size-11 items-center justify-center rounded-full border border-border bg-card/90 text-foreground shadow-lg backdrop-blur-xl transition-colors hover:bg-muted"
         >
