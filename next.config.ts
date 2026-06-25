@@ -51,6 +51,8 @@ const adOrigins = [
   "https://www.clarity.ms",
   // Google's certified CMP (Funding Choices / "Privacy & messaging") consent banner.
   "https://fundingchoicesmessages.google.com",
+  // AdSense ad-traffic-quality (anti-fraud) endpoints loaded by adsbygoogle.
+  "https://*.adtrafficquality.google",
 ];
 
 const csp = [
@@ -60,8 +62,8 @@ const csp = [
   `style-src 'self' 'unsafe-inline'`,
   `font-src 'self' data:`,
   `img-src 'self' data: blob: https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.google-analytics.com https://*.clarity.ms`,
-  `connect-src 'self' blob: ${supabaseOrigin} ${supabaseWs} https://unpkg.com https://staticimgly.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com https://fundingchoicesmessages.google.com`,
-  `frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.googlesyndication.com https://www.google.com https://fundingchoicesmessages.google.com`,
+  `connect-src 'self' blob: ${supabaseOrigin} ${supabaseWs} https://unpkg.com https://staticimgly.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com https://fundingchoicesmessages.google.com https://*.adtrafficquality.google`,
+  `frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.googlesyndication.com https://www.google.com https://fundingchoicesmessages.google.com https://*.adtrafficquality.google`,
   `worker-src 'self' blob:`,
   `object-src 'none'`,
   `base-uri 'self'`,
