@@ -71,13 +71,13 @@ export function Footer() {
               href="/privacy"
               className="text-xs text-white/50 transition-colors hover:text-white"
             >
-              Privacy
+              Privacy Policy
             </Link>
             <Link
               href="/terms-of-service"
               className="text-xs text-white/50 transition-colors hover:text-white"
             >
-              Terms
+              Terms of Service
             </Link>
           </nav>
         </div>
