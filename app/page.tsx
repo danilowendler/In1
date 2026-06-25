@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HomeTools } from "@/components/home-tools";
 import { HeroMarquee } from "@/components/hero-marquee";
+import { ExploreToolsButton } from "@/components/explore-tools-button";
 import { Logo } from "@/components/layout/logo";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -24,12 +25,7 @@ export default function Home() {
             no waiting, no hassle.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="#tools"
-              className={cn(buttonVariants({ size: "lg" }), "h-11 px-6 text-[15px]")}
-            >
-              Explore tools
-            </Link>
+            <ExploreToolsButton />
             <Link
               href="/all"
               className={cn(
