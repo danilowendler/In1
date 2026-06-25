@@ -76,7 +76,14 @@ export function ToolPool({ tools }: ToolPoolProps) {
   // Gesture bookkeeping.
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const dragStart = useRef({ px: 0, py: 0, panX: 0, panY: 0 });
-  const pinchStart = useRef<{ dist: number; scale: number } | null>(null);
+  const pinchStart = useRef<{
+    dist: number;
+    scale: number;
+    cx: number;
+    cy: number;
+    p0x: number;
+    p0y: number;
+  } | null>(null);
   const moved = useRef(false);
   const gesturing = useRef(false);
   const rafId = useRef<number | null>(null);
@@ -107,6 +114,26 @@ export function ToolPool({ tools }: ToolPoolProps) {
       applyView(false);
     });
   }, [applyView]);
+
+  // Zoom toward a focal screen point (cursor / pinch midpoint) instead of the
+  // canvas center, so the content under the pointer stays put while zooming.
+  const zoomTowardPoint = useCallback(
+    (nextScaleRaw: number, focalX: number, focalY: number) => {
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const sOld = scaleRef.current;
+      const sNew = clampScale(nextScaleRaw);
+      // Local content point currently under the focal point (origin = center).
+      const px = (focalX - cx - panRef.current.x) / sOld;
+      const py = (focalY - cy - panRef.current.y) / sOld;
+      panRef.current = { x: focalX - cx - sNew * px, y: focalY - cy - sNew * py };
+      scaleRef.current = sNew;
+      scheduleApply();
+    },
+    [scheduleApply],
+  );
 
   // Push the live view back into React state (recenter button + base for the
   // next animated move). Called when a gesture finishes.
@@ -155,14 +182,13 @@ export function ToolPool({ tools }: ToolPoolProps) {
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const factor = e.deltaY > 0 ? 0.9 : 1.1; // scroll out → zoom out
-      scaleRef.current = clampScale(scaleRef.current * factor);
-      scheduleApply();
+      zoomTowardPoint(scaleRef.current * factor, e.clientX, e.clientY);
       if (wheelCommit.current) clearTimeout(wheelCommit.current);
       wheelCommit.current = setTimeout(commitView, 140);
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
-  }, [scheduleApply, commitView]);
+  }, [zoomTowardPoint, commitView]);
 
   // Cleanup any pending frame/timer on unmount.
   useEffect(() => {
@@ -177,9 +203,23 @@ export function ToolPool({ tools }: ToolPoolProps) {
       if (e.pointerType === "mouse" && e.button !== 0) return;
       pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
       if (pointers.current.size === 2) {
-        // Second finger down → start a pinch (this is never a tap).
+        // Second finger down → start a pinch (this is never a tap). Anchor on the
+        // content point under the initial midpoint so zoom stays focal-centered.
         const [a, b] = [...pointers.current.values()];
-        pinchStart.current = { dist: distance(a, b), scale: scaleRef.current };
+        const rect = canvasRef.current?.getBoundingClientRect();
+        const cx = rect ? rect.left + rect.width / 2 : 0;
+        const cy = rect ? rect.top + rect.height / 2 : 0;
+        const s0 = scaleRef.current;
+        const mx = (a.x + b.x) / 2;
+        const my = (a.y + b.y) / 2;
+        pinchStart.current = {
+          dist: distance(a, b),
+          scale: s0,
+          cx,
+          cy,
+          p0x: (mx - cx - panRef.current.x) / s0,
+          p0y: (my - cy - panRef.current.y) / s0,
+        };
         moved.current = true;
         gesturing.current = true;
         setGrabbing(true);
@@ -205,11 +245,19 @@ export function ToolPool({ tools }: ToolPoolProps) {
       p.x = e.clientX;
       p.y = e.clientY;
 
-      // Two fingers → pinch-zoom the canvas (mirrors the desktop wheel zoom).
+      // Two fingers → pinch-zoom anchored at the fingers' midpoint (and pan as
+      // that midpoint moves), so zooming never drifts to the center.
       if (pointers.current.size >= 2 && pinchStart.current) {
+        const ps = pinchStart.current;
         const [a, b] = [...pointers.current.values()];
-        const ratio = distance(a, b) / (pinchStart.current.dist || 1);
-        scaleRef.current = clampScale(pinchStart.current.scale * ratio);
+        const sNew = clampScale((ps.scale * distance(a, b)) / (ps.dist || 1));
+        const mx = (a.x + b.x) / 2;
+        const my = (a.y + b.y) / 2;
+        scaleRef.current = sNew;
+        panRef.current = {
+          x: mx - ps.cx - sNew * ps.p0x,
+          y: my - ps.cy - sNew * ps.p0y,
+        };
         scheduleApply();
         return;
       }
