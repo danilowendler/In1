@@ -181,7 +181,7 @@ const SECTIONS: { id: string; heading: string; body: ReactNode }[] = [
         </ul>
         <p>
           {`To exercise any of these rights, email us at `}
-          <a href="mailto:privacy@in1.services">privacy@in1.services</a>
+          <a href="mailto:contactin1services@gmail.com">contactin1services@gmail.com</a>
           {` and we'll respond within the time required by applicable law.`}
         </p>
       </>
@@ -229,7 +229,7 @@ const SECTIONS: { id: string; heading: string; body: ReactNode }[] = [
     body: (
       <p>
         {`Questions about this policy or your data? Email us at `}
-        <a href="mailto:privacy@in1.services">privacy@in1.services</a>
+        <a href="mailto:contactin1services@gmail.com">contactin1services@gmail.com</a>
         {`.`}
       </p>
     ),

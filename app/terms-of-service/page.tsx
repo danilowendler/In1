@@ -154,7 +154,7 @@ const SECTIONS: { id: string; heading: string; body: ReactNode }[] = [
     body: (
       <p>
         {`These Terms are governed by the laws of Brazil, without regard to its conflict-of-law rules. Questions about these Terms? Email us at `}
-        <a href="mailto:privacy@in1.services">privacy@in1.services</a>
+        <a href="mailto:contactin1services@gmail.com">contactin1services@gmail.com</a>
         {`.`}
       </p>
     ),
