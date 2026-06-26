@@ -61,7 +61,7 @@ const csp = [
   `script-src-elem 'self' 'unsafe-inline' blob: https://unpkg.com ${adOrigins.join(" ")}`,
   `style-src 'self' 'unsafe-inline'`,
   `font-src 'self' data:`,
-  `img-src 'self' data: blob: https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.google-analytics.com https://*.clarity.ms`,
+  `img-src 'self' data: blob: https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.google-analytics.com https://*.clarity.ms https://*.adtrafficquality.google`,
   `connect-src 'self' blob: ${supabaseOrigin} ${supabaseWs} https://unpkg.com https://staticimgly.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com https://fundingchoicesmessages.google.com https://*.adtrafficquality.google`,
   `frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.googlesyndication.com https://www.google.com https://fundingchoicesmessages.google.com https://*.adtrafficquality.google`,
   `worker-src 'self' blob:`,
