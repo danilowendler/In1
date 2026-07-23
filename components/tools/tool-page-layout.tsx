@@ -15,6 +15,7 @@ import { PremiumCta } from "@/components/layout/premium-cta";
 import { ToolProcessor } from "@/components/tools/tool-processor";
 import { ToolSchema } from "@/components/seo/json-ld";
 import { Reveal } from "@/components/reveal";
+import { RelatedGuides } from "@/components/guides/related-guides";
 import { getCategory, getToolsByCategory } from "@/lib/tools/registry";
 import type { Tool } from "@/lib/tools/types";
 
@@ -120,6 +121,9 @@ export function ToolPageLayout({ tool }: { tool: Tool }) {
           </Accordion>
         </section>
       </Reveal>
+
+      {/* Related guides — editorial cross-links (renders only when the tool has any) */}
+      <RelatedGuides toolSlug={tool.slug} />
 
       {/* Related tools — internal linking for SEO */}
       {related.length > 0 && (

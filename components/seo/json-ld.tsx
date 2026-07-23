@@ -1,5 +1,6 @@
 import { absoluteUrl, siteConfig } from "@/lib/site";
 import type { Tool } from "@/lib/tools/types";
+import type { Guide } from "@/lib/guides/types";
 
 /** Renders a JSON-LD <script> tag. Safe to use inside Server Components. */
 function JsonLd({ data }: { data: Record<string, unknown> }) {
@@ -73,6 +74,43 @@ export function ToolSchema({ tool }: { tool: Tool }) {
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
             { "@type": "ListItem", position: 2, name: tool.name, item: url },
+          ],
+        }}
+      />
+    </>
+  );
+}
+
+export function GuideSchema({ guide }: { guide: Guide }) {
+  const url = absoluteUrl(`/guides/${guide.slug}`);
+  const publisher = {
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+  };
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: guide.title,
+          description: guide.description,
+          datePublished: guide.datePublished,
+          author: publisher,
+          publisher,
+          mainEntityOfPage: url,
+          url,
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+            { "@type": "ListItem", position: 2, name: "Guides", item: absoluteUrl("/guides") },
+            { "@type": "ListItem", position: 3, name: guide.title, item: url },
           ],
         }}
       />

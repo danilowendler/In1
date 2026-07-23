@@ -80,6 +80,12 @@ export function Footer() {
               Contact
             </Link>
             <Link
+              href="/guides"
+              className="text-xs text-white/50 transition-colors hover:text-white"
+            >
+              Guides
+            </Link>
+            <Link
               href="/privacy"
               className="text-xs text-white/50 transition-colors hover:text-white"
             >

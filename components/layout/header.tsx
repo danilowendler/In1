@@ -10,6 +10,7 @@ export function Header() {
   const navItems: NavItem[] = [
     { href: "/", label: "All tools" },
     ...categories.map((c) => ({ href: `/category/${c.slug}`, label: c.label })),
+    { href: "/guides", label: "Guides" },
   ];
 
   return (
