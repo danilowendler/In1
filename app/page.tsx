@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HomeTools } from "@/components/home-tools";
 import { HeroMarquee } from "@/components/hero-marquee";
+import { HomeEditorial } from "@/components/home-editorial";
 import { ExploreToolsButton } from "@/components/explore-tools-button";
 import { Logo } from "@/components/layout/logo";
 import { buttonVariants } from "@/components/ui/button";
@@ -46,6 +47,9 @@ export default function Home() {
       >
         <HomeTools tools={tools} />
       </div>
+
+      {/* Editorial — what In1 is, how it works, why (original prose) */}
+      <HomeEditorial />
     </>
   );
 }
